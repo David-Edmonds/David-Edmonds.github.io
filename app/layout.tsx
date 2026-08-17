@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "David Edmonds — Data Analytics & BI Consultant",
     description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "David Edmonds — Data Analytics & BI Consultant" }],
+    images: [{ url: "https://david-edmonds-analytics.davidedmonds1.chatgpt.site/og-v2.png", width: 1200, height: 630, alt: "David Edmonds — Data Analytics & BI Consultant" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "David Edmonds — Data Analytics & BI Consultant",
     description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
-    images: ["/og.png"],
+    images: ["https://david-edmonds-analytics.davidedmonds1.chatgpt.site/og-v2.png"],
   },
   icons: {
     icon: "/favicon.svg",
