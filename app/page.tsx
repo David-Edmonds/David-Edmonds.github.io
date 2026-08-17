@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const skillGroups = [
   { label:"Visualize", title:"Dashboards & storytelling", text:"I structure dashboards around the decision—not the available fields—so the story stays clear.", skills:["Power BI","Tableau","Excel","Dashboard UX"] },
@@ -15,15 +15,9 @@ const roles = [
   ["Intelligence Analyst","Research and reporting supporting mission-critical decisions."],
 ];
 
-function parseLine(line:string){const out:string[]=[];let value="",quoted=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){if(quoted&&line[i+1]==='"'){value+='"';i++}else quoted=!quoted}else if(c===","&&!quoted){out.push(value.trim());value=""}else value+=c}out.push(value.trim());return out}
-type Check={rows:number;columns:number;missing:number;duplicates:number;score:number};
-
 export default function Home(){
   const [hours,setHours]=useState(10),[people,setPeople]=useState(2),[rate,setRate]=useState(45),[automation,setAutomation]=useState(70);
-  const [check,setCheck]=useState<Check|null>(null),[file,setFile]=useState("");
   const savings=useMemo(()=>{const h=hours*people*52*automation/100;return {hours:Math.round(h),value:Math.round(h*rate)}},[hours,people,rate,automation]);
-
-  function inspect(event:ChangeEvent<HTMLInputElement>){const selected=event.target.files?.[0];if(!selected)return;setFile(selected.name);const reader=new FileReader();reader.onload=()=>{const lines=String(reader.result||"").replace(/^\uFEFF/,"").trim().split(/\r?\n/).filter(Boolean);const headers=parseLine(lines[0]||"");const rows=lines.slice(1).map(parseLine);const missing=rows.flat().filter(x=>!x).length;const duplicates=rows.length-new Set(rows.map(x=>JSON.stringify(x))).size;const total=Math.max(rows.length*headers.length,1);const score=Math.max(0,Math.round(100-(missing/total*65+duplicates/Math.max(rows.length,1)*35)));setCheck({rows:rows.length,columns:headers.length,missing,duplicates,score})};reader.readAsText(selected)}
 
   return <main>
     <header className="site-header"><div className="shell nav">
@@ -74,9 +68,8 @@ export default function Home(){
       <div className="credential-grid"><div><span>EXPERIENCE</span><strong>10+ years</strong><small>Analytics, reporting &amp; decision support</small></div><div><span>EDUCATION</span><strong>B.S. Analytics</strong><small>Purdue Global · 2024</small></div><div><span>FOUNDATION</span><strong>A.S. Computer Technology</strong><small>Midlands Technical College · 2019</small></div><div><span>AVAILABILITY</span><strong>Remote · U.S.</strong><small>Consulting and analytics opportunities</small></div></div>
     </section>
 
-    <section className="lab section" id="lab"><div className="shell"><SectionTitle eyebrow="05 · ANALYTICS LAB" title="Try a couple of" accent="working demos." />
-      <div className="lab-grid"><article className="lab-card"><div className="lab-head"><span>01</span><div><h3>Reporting savings calculator</h3><p>Build a quick business case for automation.</p></div></div><div className="calculator"><div className="inputs"><label>Weekly reporting hours <b>{hours}</b><input type="range" min="1" max="40" value={hours} onChange={e=>setHours(+e.target.value)}/></label><label>People involved<input type="number" min="1" value={people} onChange={e=>setPeople(+e.target.value||1)}/></label><label>Hourly cost ($)<input type="number" min="1" value={rate} onChange={e=>setRate(+e.target.value||1)}/></label><label>Automatable work <b>{automation}%</b><input type="range" min="10" max="95" step="5" value={automation} onChange={e=>setAutomation(+e.target.value)}/></label></div><div className="result"><span>POTENTIAL ANNUAL IMPACT</span><strong>{savings.hours.toLocaleString()}</strong><small>hours recovered</small><hr/><b>${savings.value.toLocaleString()}</b><small>capacity value</small></div></div></article>
-      <article className="lab-card"><div className="lab-head"><span>02</span><div><h3>CSV quality checker</h3><p>Run a private, browser-only first pass.</p></div></div><label className="upload"><input type="file" accept=".csv,text/csv" onChange={inspect}/><i>↑</i><b>{file||"Choose a sanitized CSV"}</b><small>Never uploaded · stays in your browser</small></label>{check?<div className="check-results"><div><strong>{check.score}</strong><span>QUALITY<br/>SCORE</span></div><p><b>{check.rows}</b> rows</p><p><b>{check.columns}</b> columns</p><p><b>{check.missing}</b> empty cells</p><p><b>{check.duplicates}</b> duplicates</p></div>:<div className="safe-note">✓ Use only public, synthetic, or properly sanitized data.</div>}</article></div>
+    <section className="lab section" id="lab"><div className="shell"><SectionTitle eyebrow="05 · BUSINESS CALCULATOR" title="Estimate the value of" accent="better reporting." />
+      <div className="lab-grid"><article className="lab-card calculator-card"><div className="lab-head"><span>01</span><div><h3>Reporting time &amp; cost calculator</h3><p>Build a quick business case for reducing manual reporting work.</p></div></div><div className="calculator"><div className="inputs"><label>Weekly reporting hours <b>{hours}</b><input type="range" min="1" max="40" value={hours} onChange={e=>setHours(+e.target.value)}/></label><label>People involved<input type="number" min="1" value={people} onChange={e=>setPeople(+e.target.value||1)}/></label><label>Hourly cost ($)<input type="number" min="1" value={rate} onChange={e=>setRate(+e.target.value||1)}/></label><label>Automatable work <b>{automation}%</b><input type="range" min="10" max="95" step="5" value={automation} onChange={e=>setAutomation(+e.target.value)}/></label></div><div className="result"><span>POTENTIAL ANNUAL IMPACT</span><strong>{savings.hours.toLocaleString()}</strong><small>hours recovered</small><hr/><b>${savings.value.toLocaleString()}</b><small>estimated capacity value</small></div></div></article></div>
     </div></section>
 
     <section className="contact" id="contact"><div className="shell contact-grid"><div><span>LET’S WORK TOGETHER</span><h2>Have a reporting challenge worth <em>solving?</em></h2></div><div><p>Tell me what is slow, unclear, or unreliable. I’ll help you find the most practical next step.</p><a className="contact-email" href="mailto:davidedmondsc@gmail.com?subject=Analytics%20project%20inquiry">davidedmondsc@gmail.com <span>↗</span></a><div className="contact-links"><a href="tel:+18438192435">+1 (843) 819-2435</a><a href="https://www.linkedin.com/in/david-c-edmonds/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/David-Edmonds" target="_blank" rel="noreferrer">GitHub ↗</a></div></div></div></section>

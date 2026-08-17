@@ -35,8 +35,8 @@ test("server-renders the professional portfolio and both featured dashboards", a
   assert.match(html, /Federal Contracting Performance/);
   assert.match(html, /src="\/federal-contracting-dashboard\.jpg"/);
   assert.match(html, /PBIX and source files are not published/);
-  assert.match(html, /Reporting savings calculator/);
-  assert.match(html, /CSV quality checker/);
+  assert.match(html, /Reporting time &amp; cost calculator/);
+  assert.doesNotMatch(html, /CSV quality checker/);
 });
 
 test("keeps the public portfolio sanitized and preserves the Tableau case study", async () => {
