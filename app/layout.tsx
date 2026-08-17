@@ -12,6 +12,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const professionalProfile = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "David Edmonds",
+  jobTitle: "Data Analytics & BI Consultant",
+  url: "https://david-edmonds-analytics.davidedmonds1.chatgpt.site",
+  email: "mailto:davidedmondsc@gmail.com",
+  telephone: "+1-843-819-2435",
+  sameAs: [
+    "https://www.linkedin.com/in/david-c-edmonds/",
+    "https://github.com/David-Edmonds",
+    "https://public.tableau.com/app/profile/david.edmonds5066",
+  ],
+  knowsAbout: ["Power BI", "Tableau", "SQL", "Excel", "Data Quality", "KPI Reporting", "Operational Analytics"],
+};
+
 export const metadata: Metadata = {
   title: "David Edmonds — Data Analytics & BI Consultant",
   description: "David Edmonds is a Data Analytics and BI Consultant with 10+ years of experience in dashboards, reporting automation, KPI design, and operational analytics.",
@@ -39,6 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalProfile) }} /></head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
