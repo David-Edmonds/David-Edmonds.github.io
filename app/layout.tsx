@@ -14,16 +14,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "David Edmonds — Data Analytics & BI Consultant",
-  description: "Clear dashboards, trusted KPIs, and automated reporting built for better business decisions.",
+  description: "David Edmonds is a Data Analytics and BI Consultant with 10+ years of experience in dashboards, reporting automation, KPI design, and operational analytics.",
   openGraph: {
     title: "David Edmonds — Data Analytics & BI Consultant",
-    description: "Clear data. Better decisions.",
+    description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "David Edmonds — Data Analytics & BI Consultant" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "David Edmonds — Data Analytics & BI Consultant",
-    description: "Clear data. Better decisions.",
+    description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
     images: ["/og.png"],
   },
   icons: {
