@@ -28,7 +28,7 @@ export default function Home(){
   return <main>
     <header className="site-header"><div className="shell nav">
       <a className="brand" href="#top"><span>DE</span><div><b>David Edmonds</b><small>DATA ANALYTICS &amp; BI</small></div></a>
-      <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#lab">Lab</a><a href="/david-edmonds-resume.pdf" download>Resume</a></nav>
+      <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#services">Services</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="/david-edmonds-resume.pdf" download>Resume</a></nav>
       <a className="header-cta" href="mailto:davidedmondsc@gmail.com?subject=Analytics%20project%20inquiry">Let’s talk <span>↗</span></a>
     </div></header>
 
@@ -39,7 +39,16 @@ export default function Home(){
 
     <section className="statement"><div className="shell"><span>WHAT I DO</span><h2>I turn operational data into <em>useful answers</em>—through focused analysis, clear reporting, and dashboards people actually use.</h2></div></section>
 
-    <section className="section shell" id="work"><SectionTitle eyebrow="01 · FEATURED WORK" title="One project," accent="shown properly." />
+    <section className="consulting section" id="services"><div className="shell"><SectionTitle eyebrow="01 · CONSULTING" title="Practical support for" accent="better decisions." />
+      <div className="offer-grid">
+        <article><span className="offer-index">01</span><small>DASHBOARDS</small><h3>BI dashboard sprint</h3><p>Turn an important business question into a focused Power BI or Tableau dashboard—with clear KPIs, thoughtful UX, and a clean handoff.</p><div className="offer-outcome"><b>Typical outcome</b><span>Executive-ready dashboard and measurement plan</span></div></article>
+        <article><span className="offer-index">02</span><small>EFFICIENCY</small><h3>Reporting automation</h3><p>Review a recurring reporting process, reduce repetitive Excel and SQL work, and build checks that make the result faster and more reliable.</p><div className="offer-outcome"><b>Typical outcome</b><span>Repeatable reporting with fewer manual errors</span></div></article>
+        <article><span className="offer-index">03</span><small>ADVISORY</small><h3>Analytics &amp; KPI support</h3><p>Define trusted metrics, assess data quality, investigate performance, and translate the findings into practical next steps for the team.</p><div className="offer-outcome"><b>Typical outcome</b><span>Clear KPI framework and actionable readout</span></div></article>
+      </div>
+      <div className="fit-note"><div><span>BEST FIT</span><p>Small teams and operations leaders who need senior, hands-on analytics support without the overhead of a large consulting firm.</p></div><a className="button dark" href="mailto:davidedmondsc@gmail.com?subject=Analytics%20project%20inquiry">Discuss a project <span>↗</span></a></div>
+    </div></section>
+
+    <section className="section shell" id="work"><SectionTitle eyebrow="02 · FEATURED WORK" title="One project," accent="shown properly." />
       <article className="feature">
         <div className="feature-visual"><div className="browser-bar"><i/><i/><i/><span>WASHINGTON EV MARKET OVERVIEW</span></div><img src="/washington-ev-dashboard.png" alt="Washington EV Market Overview dashboard in Tableau"/></div>
         <div className="feature-copy"><span className="pill">TABLEAU CASE STUDY</span><h3>Washington EV Market Overview</h3><p className="lead">An executive dashboard that makes a large public dataset easy to explore—without losing the important patterns.</p><div className="case-row"><b>Question</b><p>How is EV adoption changing across Washington’s counties, manufacturers, and vehicle types?</p></div><div className="case-row"><b>My work</b><p>KPI hierarchy, dynamic filtering, geographic analysis, dashboard UX, and data-quality controls.</p></div><div className="case-row"><b>Outcome</b><p>A decision-ready market view that reveals adoption trends, leading brands, and regional differences.</p></div><div className="chips"><span>Tableau</span><span>Market analysis</span><span>Data quality</span><span>Data storytelling</span></div><div className="project-actions"><a className="button blue" href="/work/washington-ev-market">View full case study <span>→</span></a><a className="secondary-action" href="https://public.tableau.com/app/profile/david.edmonds5066/viz/WashingtonEVMarketOverview/Dashboard1#1" target="_blank" rel="noreferrer">Open in Tableau ↗</a><a className="secondary-action" href="https://github.com/David-Edmonds/washington-ev-analytics" target="_blank" rel="noreferrer">Project files ↗</a></div></div>
@@ -51,16 +60,17 @@ export default function Home(){
       </div>
     </section>
 
-    <section className="skills section" id="skills"><div className="shell"><SectionTitle eyebrow="02 · CAPABILITIES" title="The skills behind" accent="the work." />
+    <section className="skills section" id="skills"><div className="shell"><SectionTitle eyebrow="03 · CAPABILITIES" title="The skills behind" accent="the work." />
       <div className="skill-grid">{skillGroups.map((group,index)=><article key={group.label}><div className="skill-number">0{index+1}</div><span className="skill-label">{group.label}</span><h3>{group.title}</h3><p>{group.text}</p><div className="skill-chips">{group.skills.map(skill=><span key={skill}>{skill}</span>)}</div></article>)}</div>
       <div className="toolbelt"><span>TOOLBELT</span><div>Power BI <i/> Tableau <i/> SQL <i/> Excel <i/> PostgreSQL <i/> Python <i/> SharePoint <i/> ArcGIS</div></div>
     </div></section>
 
-    <section className="section shell" id="experience"><SectionTitle eyebrow="03 · EXPERIENCE" title="A career built around" accent="decision support." />
+    <section className="section shell" id="experience"><SectionTitle eyebrow="04 · EXPERIENCE" title="A career built around" accent="decision support." />
       <div className="experience-grid"><div className="experience-intro"><p>I bring more than a decade of experience in operational reporting, dashboard development, data quality, large-scale analysis, defense, intelligence, recruiting, and business operations.</p><div className="sector-list"><span>DEFENSE</span><span>INTELLIGENCE</span><span>GOVERNMENT</span><span>OPERATIONS</span><span>RECRUITING</span><span>BUSINESS INTELLIGENCE</span></div><a className="button dark" href="/david-edmonds-resume.pdf" download>Download resume <span>↓</span></a></div><div className="role-list">{roles.map((role,index)=><article key={role[0]}><span>0{index+1}</span><div><h3>{role[0]}</h3><p>{role[1]}</p></div></article>)}</div></div>
+      <div className="credential-grid"><div><span>EXPERIENCE</span><strong>10+ years</strong><small>Analytics, reporting &amp; decision support</small></div><div><span>EDUCATION</span><strong>B.S. Analytics</strong><small>Purdue Global · 2024</small></div><div><span>FOUNDATION</span><strong>A.S. Computer Technology</strong><small>Midlands Technical College · 2019</small></div><div><span>AVAILABILITY</span><strong>Remote · U.S.</strong><small>Consulting and analytics opportunities</small></div></div>
     </section>
 
-    <section className="lab section" id="lab"><div className="shell"><SectionTitle eyebrow="04 · ANALYTICS LAB" title="Try a couple of" accent="working demos." />
+    <section className="lab section" id="lab"><div className="shell"><SectionTitle eyebrow="05 · ANALYTICS LAB" title="Try a couple of" accent="working demos." />
       <div className="lab-grid"><article className="lab-card"><div className="lab-head"><span>01</span><div><h3>Reporting savings calculator</h3><p>Build a quick business case for automation.</p></div></div><div className="calculator"><div className="inputs"><label>Weekly reporting hours <b>{hours}</b><input type="range" min="1" max="40" value={hours} onChange={e=>setHours(+e.target.value)}/></label><label>People involved<input type="number" min="1" value={people} onChange={e=>setPeople(+e.target.value||1)}/></label><label>Hourly cost ($)<input type="number" min="1" value={rate} onChange={e=>setRate(+e.target.value||1)}/></label><label>Automatable work <b>{automation}%</b><input type="range" min="10" max="95" step="5" value={automation} onChange={e=>setAutomation(+e.target.value)}/></label></div><div className="result"><span>POTENTIAL ANNUAL IMPACT</span><strong>{savings.hours.toLocaleString()}</strong><small>hours recovered</small><hr/><b>${savings.value.toLocaleString()}</b><small>capacity value</small></div></div></article>
       <article className="lab-card"><div className="lab-head"><span>02</span><div><h3>CSV quality checker</h3><p>Run a private, browser-only first pass.</p></div></div><label className="upload"><input type="file" accept=".csv,text/csv" onChange={inspect}/><i>↑</i><b>{file||"Choose a sanitized CSV"}</b><small>Never uploaded · stays in your browser</small></label>{check?<div className="check-results"><div><strong>{check.score}</strong><span>QUALITY<br/>SCORE</span></div><p><b>{check.rows}</b> rows</p><p><b>{check.columns}</b> columns</p><p><b>{check.missing}</b> empty cells</p><p><b>{check.duplicates}</b> duplicates</p></div>:<div className="safe-note">✓ Use only public, synthetic, or properly sanitized data.</div>}</article></div>
     </div></section>
