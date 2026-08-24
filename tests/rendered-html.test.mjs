@@ -29,7 +29,7 @@ test("server-renders a concise multi-page professional homepage", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>David Edmonds — Data Analytics &amp; BI Consultant<\/title>/i);
+  assert.match(html, /<title>David Edmonds — Senior Data Analyst &amp; BI Professional<\/title>/i);
   assert.match(html, /Complex data\./);
   assert.match(html, /Washington EV Market Overview/);
   assert.match(html, /Federal Contracting Performance/);
@@ -37,11 +37,12 @@ test("server-renders a concise multi-page professional homepage", async () => {
   assert.match(html, /href="\/services"/);
   assert.match(html, /href="\/about"/);
   assert.match(html, /href="\/tools"/);
-  assert.doesNotMatch(html, /CSV quality checker/);
+  assert.match(html, /Open the analytics lab/);
+  assert.match(html, /Confia Solutions, LLC/);
 });
 
-test("renders every main page and keeps the public portfolio sanitized", async () => {
-  const [caseResponse, workResponse, servicesResponse, aboutResponse, toolsResponse, contactResponse, workSource, publicFiles] = await Promise.all([
+test("renders every main page and keeps the public portfolio truthful and sanitized", async () => {
+  const [caseResponse, workResponse, servicesResponse, aboutResponse, toolsResponse, contactResponse, workSource, aboutSource, layoutSource, chromeSource, publicFiles] = await Promise.all([
     render("/work/washington-ev-market"),
     render("/work"),
     render("/services"),
@@ -49,6 +50,9 @@ test("renders every main page and keeps the public portfolio sanitized", async (
     render("/tools"),
     render("/contact"),
     readFile(new URL("../app/work/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/SiteChrome.tsx", import.meta.url), "utf8"),
     readdir(new URL("../public/", import.meta.url)),
   ]);
 
@@ -59,7 +63,21 @@ test("renders every main page and keeps the public portfolio sanitized", async (
   assert.match(caseHtml, /Washington EV Market Overview/);
   assert.match(caseHtml, /public\.tableau\.com/);
   assert.match(workHtml, /PBIX and source files are not published/);
+  assert.match(workHtml, /CURRENT ROLE · CONFIA SOLUTIONS/);
+  assert.match(workHtml, /Recruiting &amp; Operational Analytics/);
   assert.match(toolsHtml, /Reporting time &amp; cost calculator/);
+  assert.match(toolsHtml, /CSV quality checker/);
+  assert.match(toolsHtml, /never uploaded/i);
+  assert.match(`${workSource}\n${aboutSource}`, /Confia Solutions/i);
+  assert.match(workSource, /CURRENT ROLE · CONFIA SOLUTIONS, LLC/);
+  assert.match(aboutSource, /Data Analytics Consultant \| Confia Solutions, LLC/);
+  assert.match(workSource, /TABLEAU CASE STUDY/);
+  assert.match(workSource, /POWER BI PORTFOLIO BUILD/);
+  assert.match(layoutSource, /https:\/\/david-edmonds\.github\.io/);
+  assert.match(layoutSource, /worksFor/);
+  assert.match(layoutSource, /Confia Solutions, LLC/);
+  assert.match(chromeSource, /Confia Solutions, LLC/);
+  assert.doesNotMatch(`${workSource}\n${aboutSource}\n${layoutSource}\n${chromeSource}`, /Confia[^\n]*(full[- ]time|named end client|client name)/i);
   assert.doesNotMatch(workSource, /(href|src)=[^\n]*\.pbix/i);
   assert.equal(publicFiles.some((name) => name.toLowerCase().endsWith(".pbix")), false);
   await access(new URL("../public/federal-contracting-dashboard.jpg", import.meta.url));
