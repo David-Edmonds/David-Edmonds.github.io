@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 
+const siteUrl = new URL("https://david-edmonds.github.io");
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,8 +19,9 @@ const professionalProfile = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "David Edmonds",
-  jobTitle: "Data Analytics & BI Consultant",
-  url: "https://david-edmonds-analytics.davidedmonds1.chatgpt.site",
+  jobTitle: "Data Analytics Consultant",
+  worksFor: { "@type": "Organization", name: "Confia Solutions, LLC" },
+  url: siteUrl.toString(),
   email: "mailto:davidedmondsc@gmail.com",
   telephone: "+1-843-819-2435",
   sameAs: [
@@ -30,18 +33,23 @@ const professionalProfile = {
 };
 
 export const metadata: Metadata = {
-  title: "David Edmonds — Data Analytics & BI Consultant",
-  description: "David Edmonds is a Data Analytics and BI Consultant with 10+ years of experience in dashboards, reporting automation, KPI design, and operational analytics.",
+  metadataBase: siteUrl,
+  title: "David Edmonds — Senior Data Analyst & BI Professional",
+  description: "David Edmonds is a Data Analytics Consultant with Confia Solutions, LLC and a senior data analyst and BI professional with 10+ years of experience in dashboards, reporting, data quality, KPI design, and operational analytics.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "David Edmonds — Data Analytics & BI Consultant",
+    type: "website",
+    url: "/",
+    siteName: "David Edmonds Analytics",
+    title: "David Edmonds — Senior Data Analyst & BI Professional",
     description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
-    images: [{ url: "https://david-edmonds-analytics.davidedmonds1.chatgpt.site/og-v2.png", width: 1200, height: 630, alt: "David Edmonds — Data Analytics & BI Consultant" }],
+    images: [{ url: "/og-v2.png", width: 1200, height: 630, alt: "David Edmonds — Senior Data Analyst & BI Professional" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Edmonds — Data Analytics & BI Consultant",
+    title: "David Edmonds — Senior Data Analyst & BI Professional",
     description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
-    images: ["https://david-edmonds-analytics.davidedmonds1.chatgpt.site/og-v2.png"],
+    images: ["/og-v2.png"],
   },
   icons: {
     icon: "/favicon.svg",
@@ -49,11 +57,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalProfile) }} /></head>

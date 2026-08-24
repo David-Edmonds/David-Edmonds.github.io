@@ -2,7 +2,7 @@ const links = [
   ["Work", "/work"],
   ["Services", "/services"],
   ["About", "/about"],
-  ["Calculator", "/tools"],
+  ["Tools", "/tools"],
   ["Resume", "/david-edmonds-resume.pdf"],
 ];
 
@@ -16,5 +16,5 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  return <footer className="footer shell"><a className="brand" href="/"><span>DE</span><div><b>David Edmonds</b><small>DATA ANALYTICS &amp; BI</small></div></a><p>Remote · United States<br/>Consulting &amp; analytics opportunities</p><div><a href="/work">Work</a><a href="/services">Services</a><a href="/contact">Contact</a><a href="#top">Top ↑</a></div><small>© {new Date().getFullYear()} David Edmonds · Client-confidential data is never published.</small></footer>;
+  return <footer className="footer shell"><a className="brand" href="/"><span>DE</span><div><b>David Edmonds</b><small>DATA ANALYTICS &amp; BI</small></div></a><p>Data Analytics Consultant · Confia Solutions, LLC<br/>Remote · U.S. work authorized</p><div><a href="/work">Work</a><a href="/services">Services</a><a href="/contact">Contact</a><a href="#top">Top ↑</a></div><small>© {new Date().getFullYear()} David Edmonds · Client-confidential data is never published.</small></footer>;
 }
