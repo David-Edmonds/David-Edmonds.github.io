@@ -32,11 +32,12 @@ function internalTargetToFile(target) {
 test("static export contains every public route and approved positioning", async () => {
   for (const file of htmlFiles) await access(join(docs, file));
 
-  const [home, tools, work, about, sitemap, robots] = await Promise.all([
+  const [home, tools, work, about, caseStudy, sitemap, robots] = await Promise.all([
     readFile(join(docs, "index.html"), "utf8"),
     readFile(join(docs, "tools/index.html"), "utf8"),
     readFile(join(docs, "work/index.html"), "utf8"),
     readFile(join(docs, "about/index.html"), "utf8"),
+    readFile(join(docs, "work/washington-ev-market/index.html"), "utf8"),
     readFile(join(docs, "sitemap.xml"), "utf8"),
     readFile(join(docs, "robots.txt"), "utf8"),
   ]);
@@ -48,9 +49,11 @@ test("static export contains every public route and approved positioning", async
   assert.match(tools, /never uploaded/i);
   assert.match(work, /CURRENT ROLE · CONFIA SOLUTIONS, LLC/);
   assert.match(about, /Data Analytics Consultant \| Confia Solutions, LLC/);
+  assert.match(caseStudy, /https:\/\/david-edmonds\.github\.io\/washington-ev-dashboard\.png/);
   assert.match(sitemap, /https:\/\/david-edmonds\.github\.io\/tools/);
   assert.match(robots, /Sitemap: https:\/\/david-edmonds\.github\.io\/sitemap\.xml/);
-  assert.doesNotMatch(`${home}\n${tools}\n${work}\n${about}`, /http:\/\/localhost/i);
+  assert.doesNotMatch(`${home}\n${tools}\n${work}\n${about}\n${caseStudy}`, /http:\/\/localhost/i);
+  assert.doesNotMatch(`${home}\n${tools}\n${work}\n${about}\n${caseStudy}`, /chatgpt\.site/i);
 });
 
 test("every root-relative link and asset in generated HTML resolves", async () => {
