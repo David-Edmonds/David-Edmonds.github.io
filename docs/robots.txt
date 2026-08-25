@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://david-edmonds-analytics.davidedmonds1.chatgpt.site/sitemap.xml
+Sitemap: https://david-edmonds.github.io/sitemap.xml

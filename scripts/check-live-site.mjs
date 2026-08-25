@@ -2,8 +2,9 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 
 const siteUrl = new URL(process.env.SITE_URL ?? "https://david-edmonds.github.io/");
+const expectedResumeBytes = 8_565;
 const expectedResumeSha256 =
-  "dcb9333c170a24c06f3ab789b6c115b27e79feb47a91a55b0c3296b8931f25e3";
+  "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
 const pageChecks = [
   { path: "/", contains: ["Confia Solutions, LLC", "Senior Data Analyst"] },
@@ -121,7 +122,11 @@ async function checkResume() {
 
   const bytes = Buffer.from(await response.arrayBuffer());
   assert.equal(bytes.subarray(0, 5).toString(), "%PDF-", "Résumé is not a valid PDF header");
-  assert.ok(bytes.length > 50_000, `Résumé is unexpectedly small: ${bytes.length} bytes`);
+  assert.equal(
+    bytes.length,
+    expectedResumeBytes,
+    `Résumé size changed: expected ${expectedResumeBytes}, received ${bytes.length}`,
+  );
 
   const sha256 = createHash("sha256").update(bytes).digest("hex");
   assert.equal(
