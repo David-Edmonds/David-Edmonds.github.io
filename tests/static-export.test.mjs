@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { access, readFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import test from "node:test";
@@ -6,6 +7,8 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = join(root, "docs");
+const resumeSize = 8_565;
+const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
 const htmlFiles = [
   "index.html",
@@ -73,13 +76,14 @@ test("every root-relative link and asset in generated HTML resolves", async () =
   assert.deepEqual(missing, []);
 });
 
-test("published resume is the full reviewed PDF", async () => {
+test("published resume exactly matches the reviewed PDF", async () => {
   const resumePath = join(docs, "david-edmonds-resume.pdf");
-  const [info, header] = await Promise.all([
+  const [info, buffer] = await Promise.all([
     stat(resumePath),
-    readFile(resumePath).then((buffer) => buffer.subarray(0, 5).toString("ascii")),
+    readFile(resumePath),
   ]);
 
-  assert.equal(header, "%PDF-");
-  assert.ok(info.size >= 20_000, `Resume PDF is unexpectedly small: ${info.size} bytes`);
+  assert.equal(buffer.subarray(0, 5).toString("ascii"), "%PDF-");
+  assert.equal(info.size, resumeSize);
+  assert.equal(createHash("sha256").update(buffer).digest("hex"), resumeSha256);
 });
