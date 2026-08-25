@@ -1,4 +1,4 @@
-import Link from "next/link";
+/* eslint-disable @next/next/no-html-link-for-pages -- This site is exported to static GitHub Pages HTML, so full-page anchors are intentional. */
 
 const links = [
   ["Work", "/work"],
@@ -12,34 +12,34 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="shell nav">
-        <Link className="brand" href="/">
+        <a className="brand" href="/">
           <span>DE</span>
           <div>
             <b>David Edmonds</b>
             <small>DATA ANALYTICS &amp; BI</small>
           </div>
-        </Link>
+        </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(([label, href]) => (
-            <Link key={label} href={href}>
+            <a key={label} href={href}>
               {label}
-            </Link>
+            </a>
           ))}
         </nav>
         <details className="mobile-nav">
           <summary>Menu</summary>
           <nav aria-label="Mobile navigation">
             {links.map(([label, href]) => (
-              <Link key={label} href={href}>
+              <a key={label} href={href}>
                 {label}
-              </Link>
+              </a>
             ))}
-            <Link href="/contact">Contact</Link>
+            <a href="/contact">Contact</a>
           </nav>
         </details>
-        <Link className="header-cta" href="/contact">
+        <a className="header-cta" href="/contact">
           Let’s talk <span>↗</span>
-        </Link>
+        </a>
       </div>
     </header>
   );
@@ -48,22 +48,22 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="footer shell">
-      <Link className="brand" href="/">
+      <a className="brand" href="/">
         <span>DE</span>
         <div>
           <b>David Edmonds</b>
           <small>DATA ANALYTICS &amp; BI</small>
         </div>
-      </Link>
+      </a>
       <p>
         Data Analytics Consultant · Confia Solutions, LLC
         <br />
         Remote · U.S. work authorized
       </p>
       <div>
-        <Link href="/work">Work</Link>
-        <Link href="/services">Services</Link>
-        <Link href="/contact">Contact</Link>
+        <a href="/work">Work</a>
+        <a href="/services">Services</a>
+        <a href="/contact">Contact</a>
         <a href="#top">Top ↑</a>
       </div>
       <small>
