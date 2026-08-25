@@ -4,11 +4,9 @@ on:
   schedule:
     - cron: "0 14 * * 1"
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/site-health.yml
-      - scripts/check-live-site.mjs
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
 
 permissions:
   contents: read
@@ -20,6 +18,7 @@ concurrency:
 
 jobs:
   health:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -49,7 +48,7 @@ jobs:
           issue_number="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
           details="$(tail -c 60000 site-health.log)"
           body=$(cat <<EOF
-          The scheduled live-site check failed on $(date -u +'%Y-%m-%d %H:%M UTC').
+          The live-site check failed on $(date -u +'%Y-%m-%d %H:%M UTC').
 
           Workflow: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
 
