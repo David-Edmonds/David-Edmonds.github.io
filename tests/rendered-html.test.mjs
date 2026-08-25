@@ -42,8 +42,9 @@ test("server-renders a concise multi-page professional homepage", async () => {
 });
 
 test("renders every main page and keeps the public portfolio truthful and sanitized", async () => {
-  const [caseResponse, workResponse, servicesResponse, aboutResponse, toolsResponse, contactResponse, workSource, aboutSource, layoutSource, chromeSource, publicFiles] = await Promise.all([
+  const [caseResponse, federalResponse, workResponse, servicesResponse, aboutResponse, toolsResponse, contactResponse, workSource, aboutSource, layoutSource, chromeSource, publicFiles] = await Promise.all([
     render("/work/washington-ev-market"),
+    render("/work/federal-contracting-performance"),
     render("/work"),
     render("/services"),
     render("/about"),
@@ -56,12 +57,19 @@ test("renders every main page and keeps the public portfolio truthful and saniti
     readdir(new URL("../public/", import.meta.url)),
   ]);
 
-  for (const response of [caseResponse, workResponse, servicesResponse, aboutResponse, toolsResponse, contactResponse]) assert.equal(response.status, 200);
+  for (const response of [caseResponse, federalResponse, workResponse, servicesResponse, aboutResponse, toolsResponse, contactResponse]) assert.equal(response.status, 200);
   const caseHtml = await caseResponse.text();
+  const federalHtml = await federalResponse.text();
   const workHtml = await workResponse.text();
   const toolsHtml = await toolsResponse.text();
   assert.match(caseHtml, /Washington EV Market Overview/);
   assert.match(caseHtml, /public\.tableau\.com/);
+  assert.match(federalHtml, /Federal Contracting Performance/i);
+  assert.match(federalHtml, /19\.2M/);
+  assert.match(federalHtml, /\$2\.27T/);
+  assert.match(federalHtml, /different denominators/i);
+  assert.match(federalHtml, /not presented as[\s\S]*Confia Solutions/i);
+  assert.doesNotMatch(federalHtml, /\.pbix/i);
   assert.match(workHtml, /PBIX and source files are not published/);
   assert.match(workHtml, /CURRENT ROLE · CONFIA SOLUTIONS/);
   assert.match(workHtml, /Recruiting &amp; Operational Analytics/);
@@ -72,7 +80,7 @@ test("renders every main page and keeps the public portfolio truthful and saniti
   assert.match(workSource, /CURRENT ROLE · CONFIA SOLUTIONS, LLC/);
   assert.match(aboutSource, /Data Analytics Consultant \| Confia Solutions, LLC/);
   assert.match(workSource, /TABLEAU CASE STUDY/);
-  assert.match(workSource, /POWER BI PORTFOLIO BUILD/);
+  assert.match(workSource, /POWER BI PUBLIC-DATA CASE STUDY/);
   assert.match(layoutSource, /https:\/\/david-edmonds\.github\.io/);
   assert.match(layoutSource, /worksFor/);
   assert.match(layoutSource, /Confia Solutions, LLC/);

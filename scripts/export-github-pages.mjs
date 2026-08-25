@@ -19,6 +19,7 @@ const htmlRoutes = [
   "/services",
   "/tools",
   "/work",
+  "/work/federal-contracting-performance",
   "/work/washington-ev-market",
 ];
 

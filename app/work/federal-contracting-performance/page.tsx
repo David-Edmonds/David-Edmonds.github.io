@@ -9,6 +9,25 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://david-edmonds.github.io/work/federal-contracting-performance/",
   },
+  openGraph: {
+    title: "Federal Contracting Performance | David Edmonds",
+    description:
+      "An independent public-data Power BI case study covering federal obligations, competition, small-business participation, agency goals, and validation.",
+    url: "https://david-edmonds.github.io/work/federal-contracting-performance/",
+    images: [
+      {
+        url: "https://david-edmonds.github.io/federal-contracting-dashboard.jpg",
+        alt: "Federal Contracting Performance Power BI dashboard",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Federal Contracting Performance | David Edmonds",
+    description:
+      "An independent public-data Power BI case study covering federal obligations, competition, small-business participation, agency goals, and validation.",
+    images: ["https://david-edmonds.github.io/federal-contracting-dashboard.jpg"],
+  },
 };
 
 const questions = [
@@ -223,6 +242,12 @@ export default function FederalContractingPerformancePage() {
               portfolio-level small-business share should not be treated as universal agency
               attainment. Those limitations are part of the interpretation, not footnotes to
               ignore.
+            </p>
+            <p className={styles.note}>
+              The dashboard percentages use total modeled obligations, while SBA scorecard
+              attainment uses eligible dollars. Because those measures have different
+              denominators, they provide related context but should not be compared as if they
+              were the same KPI.
             </p>
           </div>
         </div>
