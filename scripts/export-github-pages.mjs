@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { access, cp, mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -8,6 +9,8 @@ const clientDir = join(distDir, "client");
 const serverEntry = join(distDir, "server", "index.js");
 const outputDir = join(root, "docs");
 const origin = "https://david-edmonds.github.io";
+const resumeSize = 8_565;
+const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
 const htmlRoutes = [
   "/",
@@ -97,10 +100,12 @@ if (sitemap.status !== 200 || !/xml/i.test(sitemap.contentType)) {
 
 await writeFile(join(outputDir, ".nojekyll"), "");
 
-const [homeHtml, toolsHtml, resumeInfo] = await Promise.all([
+const resumePath = join(outputDir, "david-edmonds-resume.pdf");
+const [homeHtml, toolsHtml, resumeInfo, resumeBuffer] = await Promise.all([
   readFile(join(outputDir, "index.html"), "utf8"),
   readFile(join(outputDir, "tools", "index.html"), "utf8"),
-  stat(join(outputDir, "david-edmonds-resume.pdf")),
+  stat(resumePath),
+  readFile(resumePath),
 ]);
 
 if (!homeHtml.includes("Senior Data Analyst &amp; BI Professional") || !homeHtml.includes("Confia Solutions, LLC")) {
@@ -109,8 +114,9 @@ if (!homeHtml.includes("Senior Data Analyst &amp; BI Professional") || !homeHtml
 if (!toolsHtml.includes("CSV quality checker") || !toolsHtml.match(/never uploaded/i)) {
   throw new Error("Generated tools page is missing the CSV checker or privacy statement.");
 }
-if (resumeInfo.size < 20_000) {
-  throw new Error(`Generated resume PDF is unexpectedly small (${resumeInfo.size} bytes).`);
+const actualResumeHash = createHash("sha256").update(resumeBuffer).digest("hex");
+if (resumeInfo.size !== resumeSize || actualResumeHash !== resumeSha256) {
+  throw new Error(`Generated resume does not match the reviewed release asset (${resumeInfo.size} bytes, ${actualResumeHash}).`);
 }
 
 console.log(`Static GitHub Pages export written to ${outputDir}`);
