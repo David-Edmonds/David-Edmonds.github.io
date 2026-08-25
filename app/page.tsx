@@ -17,7 +17,7 @@ export default function Home() {
     <section className="home-work section"><div className="shell"><SectionTitle eyebrow="02 · SELECTED WORK" title="Proof through" accent="real projects." />
       <div className="project-preview-grid">
         <article><div className="project-image"><img src="/washington-ev-dashboard.png" alt="Washington EV Market Overview Tableau dashboard"/></div><div><span>TABLEAU · PUBLIC CASE STUDY</span><h3>Washington EV Market Overview</h3><p>Market concentration, county patterns, leading brands, and clearly governed metrics.</p><a href="/work/washington-ev-market">View case study →</a></div></article>
-        <article><div className="project-image federal"><img src="/federal-contracting-dashboard.jpg" alt="Federal Contracting Performance Power BI dashboard"/></div><div><span>POWER BI · PORTFOLIO BUILD</span><h3>Federal Contracting Performance</h3><p>Award activity, small-business participation, goal attainment, and agency performance.</p><a href="/work">View portfolio →</a></div></article>
+        <article><div className="project-image federal"><img src="/federal-contracting-dashboard.jpg" alt="Federal Contracting Performance Power BI dashboard"/></div><div><span>POWER BI · PUBLIC-DATA CASE STUDY</span><h3>Federal Contracting Performance</h3><p>Award activity, small-business participation, goal attainment, and agency performance.</p><a href="/work/federal-contracting-performance">View case study →</a></div></article>
       </div>
     </div></section>
 

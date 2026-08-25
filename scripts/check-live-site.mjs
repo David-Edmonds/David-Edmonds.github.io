@@ -13,6 +13,7 @@ const pageChecks = [
   { path: "/services/", contains: ["Services", "Power BI"] },
   { path: "/tools/", contains: ["CSV quality checker", "never uploaded"] },
   { path: "/work/", contains: ["Federal Contracting Performance", "Washington EV Market Overview"] },
+  { path: "/work/federal-contracting-performance/", contains: ["Federal Contracting Performance", "19.2M", "independent public data"] },
   { path: "/work/washington-ev-market/", contains: ["Washington EV Market Overview"] },
 ];
 
