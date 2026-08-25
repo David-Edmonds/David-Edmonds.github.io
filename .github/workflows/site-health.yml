@@ -1,0 +1,78 @@
+name: Live site health
+
+on:
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: live-site-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check live pages, links, and résumé
+        id: live
+        continue-on-error: true
+        shell: bash
+        run: node scripts/check-live-site.mjs 2>&1 | tee site-health.log
+        env:
+          SITE_URL: https://david-edmonds.github.io/
+
+      - name: Open or update a failure issue
+        if: steps.live.outcome == 'failure'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Automated site health failure"
+          issue_number="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
+          details="$(tail -c 60000 site-health.log)"
+          body=$(cat <<EOF
+          The scheduled live-site check failed on $(date -u +'%Y-%m-%d %H:%M UTC').
+
+          Workflow: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          \`\`\`text
+          ${details}
+          \`\`\`
+          EOF
+          )
+
+          if [ -n "$issue_number" ]; then
+            gh issue comment "$issue_number" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+
+      - name: Close a recovered failure issue
+        if: steps.live.outcome == 'success'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Automated site health failure"
+          issue_number="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
+          if [ -n "$issue_number" ]; then
+            gh issue comment "$issue_number" --body "The live-site health check recovered successfully on $(date -u +'%Y-%m-%d %H:%M UTC'). Closing this automated incident."
+            gh issue close "$issue_number" --reason completed
+          fi
+
+      - name: Fail workflow when the check failed
+        if: steps.live.outcome == 'failure'
+        run: exit 1
