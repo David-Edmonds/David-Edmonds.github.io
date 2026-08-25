@@ -5,7 +5,7 @@ on:
     - cron: "0 14 * * 1"
   workflow_dispatch:
   workflow_run:
-    workflows: ["pages build and deployment"]
+    workflows: ["Publish GitHub Pages export"]
     types: [completed]
 
 permissions:
@@ -34,7 +34,25 @@ jobs:
         id: live
         continue-on-error: true
         shell: bash
-        run: node scripts/check-live-site.mjs 2>&1 | tee site-health.log
+        run: |
+          set -o pipefail
+          : > site-health.log
+
+          for attempt in $(seq 1 12); do
+            echo "Live-site health attempt ${attempt}/12" | tee -a site-health.log
+            if node scripts/check-live-site.mjs 2>&1 | tee site-health-attempt.log; then
+              cat site-health-attempt.log >> site-health.log
+              exit 0
+            fi
+
+            cat site-health-attempt.log >> site-health.log
+            if [[ "$attempt" -lt 12 ]]; then
+              echo "Deployment is not fully visible yet; retrying in 10 seconds." | tee -a site-health.log
+              sleep 10
+            fi
+          done
+
+          exit 1
         env:
           SITE_URL: https://david-edmonds.github.io/
 
