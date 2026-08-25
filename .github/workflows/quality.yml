@@ -18,10 +18,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Use Node.js 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -34,3 +34,18 @@ jobs:
 
       - name: Build and test rendered pages
         run: npm test
+
+      - name: Capture production dependency audit
+        if: always()
+        run: npm audit --omit=dev --json > audit-production.json || true
+
+      - name: Upload build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-diagnostics
+          path: |
+            dist/
+            audit-production.json
+          retention-days: 3
+          if-no-files-found: error
