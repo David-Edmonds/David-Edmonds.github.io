@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 const title = "Washington EV Market Overview | David Edmonds";
 const description = "A Tableau case study exploring electric vehicle adoption across Washington State, including market leaders, regional patterns, vehicle types, and data-quality decisions.";
-const image = "https://david-edmonds-analytics.davidedmonds1.chatgpt.site/washington-ev-dashboard.png";
+const image = "https://david-edmonds.github.io/washington-ev-dashboard.png";
 
 export const metadata: Metadata = {
   title,
