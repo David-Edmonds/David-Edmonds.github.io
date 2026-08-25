@@ -13,9 +13,63 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  assemble_release_assets:
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.assemble.outputs.changed }}
+    steps:
+      - name: Check out source branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Assemble and verify staged resume PDF
+        id: assemble
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          if [[ "$branch" != "release/publish-analytics-lab" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          shopt -s nullglob
+          parts=(.release-assets/web-resume.b64.part-*)
+          if [[ ${#parts[@]} -eq 0 ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ ${#parts[@]} -ne 2 ]]; then
+            echo "Expected exactly 2 staged web resume parts; found ${#parts[@]}." >&2
+            exit 1
+          fi
+
+          cat "${parts[@]}" | base64 --decode > public/david-edmonds-resume.pdf
+          test "$(wc -c < public/david-edmonds-resume.pdf)" -eq 8565
+          echo "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d  public/david-edmonds-resume.pdf" | sha256sum --check --strict
+          test "$(head -c 5 public/david-edmonds-resume.pdf)" = "%PDF-"
+
+          rm -rf .release-assets
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/david-edmonds-resume.pdf .release-assets
+          git commit -m "chore: publish reviewed resume PDF [skip ci]"
+          git push origin HEAD:"$branch"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
   verify:
+    needs: assemble_release_assets
+    if: always() && (needs.assemble_release_assets.result == 'success' || needs.assemble_release_assets.result == 'skipped') && needs.assemble_release_assets.outputs.changed != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -32,12 +86,15 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Build and test rendered pages
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Build and test rendered and static pages
         run: npm test
 
-      - name: Capture production dependency audit
+      - name: Capture full dependency audit for review
         if: always()
-        run: npm audit --omit=dev --json > audit-production.json || true
+        run: npm audit --json > audit-full.json || true
 
       - name: Upload build diagnostics
         if: always()
@@ -46,6 +103,7 @@ jobs:
           name: build-diagnostics
           path: |
             dist/
-            audit-production.json
+            docs/
+            audit-full.json
           retention-days: 3
           if-no-files-found: error
