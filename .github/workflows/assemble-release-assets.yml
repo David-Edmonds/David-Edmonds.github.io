@@ -1,5 +1,6 @@
 name: Assemble reviewed release assets
 
+# One-time release helper. It becomes a no-op after the staged parts are removed.
 on:
   push:
     branches: [release/publish-analytics-lab]
