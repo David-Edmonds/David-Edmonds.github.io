@@ -1,0 +1,66 @@
+name: Apply federal case study integration
+
+on:
+  push:
+    branches:
+      - feature/federal-contracting-case-study
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-federal-case-study
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/federal-contracting-case-study
+          fetch-depth: 0
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Apply integration
+        run: node scripts/apply-federal-case-study.mjs
+
+      - name: Restore approved resume
+        shell: bash
+        run: |
+          cat .release/resume/*.b64 | base64 --decode | xz --decompress > public/david-edmonds-resume.pdf
+          printf '%s  %s\n' \
+            'dcb9333c170a24c06f3ab789b6c115b27e79feb47a91a55b0c3296b8931f25e3' \
+            'public/david-edmonds-resume.pdf' | sha256sum --check -
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify implementation
+        shell: bash
+        run: |
+          npm run lint
+          npm test
+          npm run export:static
+          npm run verify:release
+
+      - name: Commit integrated source
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app package.json scripts tests
+          if git diff --cached --quiet; then
+            echo "Integration is already applied."
+            exit 0
+          fi
+          git commit -m "feat: integrate federal contracting case study"
+          git push origin HEAD:feature/federal-contracting-case-study
