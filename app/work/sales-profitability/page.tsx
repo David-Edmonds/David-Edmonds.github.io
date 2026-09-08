@@ -9,6 +9,7 @@ const description = "An independent Excel portfolio example: explore sales, prof
 export const metadata: Metadata = {
   title, description, alternates: { canonical: "/work/sales-profitability" },
   openGraph: { title, description, url: "/work/sales-profitability", images: [{ url: "/sales-profitability/dashboard.png", alt: "Sales and profitability Excel dashboard with revenue trends and profit contributions" }] },
+  twitter: { card: "summary_large_image", title, description, images: ["/sales-profitability/dashboard.png"] },
 };
 const base = "/sales-profitability";
 

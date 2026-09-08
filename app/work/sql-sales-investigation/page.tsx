@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   title: "SQL Sales Investigation | David Edmonds",
   description: "Five reproducible SQL investigations connecting sales growth, profit pressure, category margins and regional plan performance. Independent fictional-data portfolio work.",
   alternates: { canonical: "/work/sql-sales-investigation" },
-  openGraph: { title: "SQL Sales Investigation | David Edmonds", description: "From source records to reconciled profit drivers.", images: [{ url: "/sales-profitability/dashboard.png", alt: "Sales and profitability dashboard backed by the SQL investigation" }] },
+  openGraph: { title: "SQL Sales Investigation | David Edmonds", description: "From source records to reconciled profit drivers.", url: "/work/sql-sales-investigation", images: [{ url: "/sales-profitability/dashboard.png", alt: "Sales and profitability dashboard backed by the SQL investigation" }] },
+  twitter: { card: "summary_large_image", title: "SQL Sales Investigation | David Edmonds", description: "From source records to reconciled profit drivers.", images: ["/sales-profitability/dashboard.png"] },
 };
 const findings=[
   {title:"Is growth reaching profit?",value:"12.7% → 7.9%",text:"Revenue grew 12.7%, but gross profit grew 7.9%. Start by separating business growth from profitability.",skill:"Aggregation · LAG · safe division",file:"01_performance"},

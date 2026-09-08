@@ -29,7 +29,7 @@ test("server-renders a concise multi-page professional homepage", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>David Edmonds — Senior Data Analyst &amp; BI Professional<\/title>/i);
+  assert.match(html, /<title>David Edmonds \| Data Analytics &amp; BI Consultant<\/title>/i);
   assert.match(html, /Complex data\./);
   assert.match(html, /Washington EV Market Overview/);
   assert.match(html, /Federal Contracting Performance/);
