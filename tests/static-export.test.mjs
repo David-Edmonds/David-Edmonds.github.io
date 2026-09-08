@@ -10,6 +10,22 @@ const docs = join(root, "docs");
 const resumeSize = 8_565;
 const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
+test('profit planner publishes complete results and keeps assumptions local', async () => {
+  const html=await readFile(join(docs,'tools/profit-planner/index.html'),'utf8');
+  assert.match(html,/Profit Scenario Planner/);
+  assert.match(html,/\$17,513/);
+  assert.match(html,/Break-even units/);
+  assert.match(html,/Download scenario summary/);
+  const source=await readFile(join(root,'app/tools/profit-planner/Planner.tsx'),'utf8');
+  assert.doesNotMatch(source,/\b(fetch|XMLHttpRequest|sendBeacon|localStorage|sessionStorage)\b/);
+  assert.match(await readFile(join(docs,'tools/index.html'),'utf8'),/href="\/tools\/profit-planner"/);
+  assert.match(await readFile(join(docs,'sitemap.xml'),'utf8'),/tools\/profit-planner/);
+  for (const [path,title] of [['sales-profitability','Sales &amp; Profitability in Excel'],['sql-sales-investigation','SQL Sales Investigation']]) {
+    const page=await readFile(join(docs,`work/${path}/index.html`),'utf8');
+    assert.ok(page.includes(`name="twitter:title" content="${title} | David Edmonds"`));
+  }
+});
+
 test('review exports a noindex form with local-only response download', async () => {
   const html = await readFile(join(docs, 'review/index.html'), 'utf8');
   const script = await readFile(join(docs, 'review/review.js'), 'utf8');
@@ -50,6 +66,7 @@ const htmlFiles = [
   "services/index.html",
   "tools/index.html",
   "tools/what-changed/index.html",
+  "tools/profit-planner/index.html",
   "work/index.html",
   "work/sales-profitability/index.html",
   "work/sql-sales-investigation/index.html",
@@ -145,7 +162,7 @@ test("static export contains every public route and approved positioning", async
     readFile(join(docs, "robots.txt"), "utf8"),
   ]);
 
-  assert.match(home, /<title>David Edmonds — Senior Data Analyst &amp; BI Professional<\/title>/i);
+  assert.match(home, /<title>David Edmonds \| Data Analytics &amp; BI Consultant<\/title>/i);
   assert.match(home, /Confia Solutions, LLC/);
   assert.match(home, /href="\/tools"/);
   assert.match(tools, /CSV quality checker/);

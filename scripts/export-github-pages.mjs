@@ -19,6 +19,7 @@ const htmlRoutes = [
   "/services",
   "/tools",
   "/tools/what-changed",
+  "/tools/profit-planner",
   "/work",
   "/work/sales-profitability",
   "/work/sql-sales-investigation",

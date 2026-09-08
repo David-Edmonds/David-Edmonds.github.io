@@ -34,21 +34,22 @@ const professionalProfile = {
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: "David Edmonds — Senior Data Analyst & BI Professional",
+  authors: [{ name: "David Edmonds", url: siteUrl.toString() }],
+  title: "David Edmonds | Data Analytics & BI Consultant",
   description: "David Edmonds is a Data Analytics Consultant with Confia Solutions, LLC and a senior data analyst and BI professional with 10+ years of experience in dashboards, reporting, data quality, KPI design, and operational analytics.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
     siteName: "David Edmonds Analytics",
-    title: "David Edmonds — Senior Data Analyst & BI Professional",
-    description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
+    title: "David Edmonds | Data Analytics & BI Consultant",
+    description: "Analytics portfolio, reproducible investigations and practical tools for clearer reporting and better decisions.",
     images: [{ url: "/og-v2.png", width: 1200, height: 630, alt: "David Edmonds — Senior Data Analyst & BI Professional" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Edmonds — Senior Data Analyst & BI Professional",
-    description: "10+ years turning complex data into clear dashboards, reliable reporting, and better decisions.",
+    title: "David Edmonds | Data Analytics & BI Consultant",
+    description: "Analytics portfolio, reproducible investigations and practical tools for clearer reporting and better decisions.",
     images: ["/og-v2.png"],
   },
   icons: {
