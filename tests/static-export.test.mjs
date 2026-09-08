@@ -17,6 +17,7 @@ const htmlFiles = [
   "contact/index.html",
   "services/index.html",
   "tools/index.html",
+  "tools/what-changed/index.html",
   "work/index.html",
   "work/federal-contracting-performance/index.html",
   "work/washington-ev-market/index.html",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./tools.css";
 
 const title = "Analytics Lab | David Edmonds";
-const description = "Estimate reporting effort and run a private, browser-only first-pass quality profile on a sanitized CSV.";
+const description = "Estimate reporting effort, check CSV quality, and compare reports with browser-only tools.";
 
 export const metadata: Metadata = {
   title,

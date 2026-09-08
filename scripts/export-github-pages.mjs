@@ -18,6 +18,7 @@ const htmlRoutes = [
   "/contact",
   "/services",
   "/tools",
+  "/tools/what-changed",
   "/work",
   "/work/federal-contracting-performance",
   "/work/washington-ev-market",

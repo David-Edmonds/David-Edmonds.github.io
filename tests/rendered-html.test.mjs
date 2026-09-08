@@ -90,3 +90,18 @@ test("renders every main page and keeps the public portfolio truthful and saniti
   assert.equal(publicFiles.some((name) => name.toLowerCase().endsWith(".pbix")), false);
   await access(new URL("../public/federal-contracting-dashboard.jpg", import.meta.url));
 });
+
+test("report analyzer renders sample results, metadata and privacy controls", async () => {
+  const response = await render('/tools/what-changed');
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /What Changed\? Report Analyzer \| David Edmonds/);
+  assert.match(html, /29,000/);
+  assert.match(html, /Files stay on your device/);
+  assert.match(html, /Export evidence/);
+  assert.match(html, /href="https:\/\/david-edmonds\.github\.io\/tools\/what-changed"/);
+  const source = await readFile(new URL('../app/tools/what-changed/page.tsx', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /\b(fetch|XMLHttpRequest|sendBeacon|localStorage|sessionStorage)\b/);
+  const tools = await (await render('/tools')).text();
+  assert.match(tools, /href="\/tools\/what-changed"/);
+});

@@ -269,11 +269,11 @@ export default function ToolsPage() {
       <section className="page-intro shell">
         <span>ANALYTICS LAB</span>
         <h1>Test a process.<br/><em>Check the data.</em></h1>
-        <p>Two practical, browser-based tools for estimating reporting effort and profiling a sanitized CSV before deeper analysis.</p>
+        <p>Three browser-based tools for estimating reporting effort, checking CSV quality, and comparing reports without uploading your data.</p>
       </section>
 
       <section className="lab section">
-        <div className="shell tools-stack">
+        <div className="shell tools-stack"><article className="lab-card csv-card analytics-card"><div className="lab-head"><span>03</span><div><h2>What Changed? Report Analyzer</h2><p>Compare two reports, spot missing records and duplicates, and trace what drove the change.</p></div></div><p className="calculator-note">Try the synthetic sample or choose two CSV files. Your reports stay in your browser. Inspect individual records and download a summary with supporting evidence.</p><div className="csv-actions"><a className="button blue" href="/tools/what-changed">Compare two reports <span>→</span></a></div></article>
           <article className="lab-card calculator-card analytics-card">
             <div className="lab-head"><span>01</span><div><h2>Reporting time &amp; cost calculator</h2><p>Adjust the assumptions to estimate annual capacity that could be recovered.</p></div></div>
             <div className="calculator">
