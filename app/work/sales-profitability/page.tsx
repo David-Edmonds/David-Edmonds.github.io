@@ -16,8 +16,8 @@ export default function SalesProfitability() {
       <h1>Growth is only<br/><em>half the story.</em></h1>
       <p>A compact sales dashboard that connects revenue growth to profit, makes margin pressure visible, and points to the next question worth asking.</p>
       <div className="case-page-actions">
-        <a className="button blue" href={`${base}/sales-profitability-dashboard.xlsx`} download>Download Excel <span>↓</span></a>
-        <a className="secondary-action" href={`${base}/sales-profitability-package.zip`} download>Complete package ↓</a>
+        <a className="button blue" href={`${base}/sales-profitability-package.zip`} download>Download project <span>↓</span></a>
+        <a className="secondary-action" href={`${base}/sales-profitability-dashboard.xlsx`} download>Excel workbook only ↓</a>
         <a className="secondary-action" href="https://github.com/David-Edmonds/David-Edmonds.github.io/tree/main/public/sales-profitability">View on GitHub ↗</a>
       </div>
       <p className="safe-project-note">Independent portfolio example · fictional Northstar Supply data · no client information.</p>

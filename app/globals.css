@@ -39,3 +39,11 @@
   .header-cta::after{content:none}
   .home-proof{display:flex}
 }
+
+/* Consistent spacing between Work projects and their download actions. */
+.work-page > .feature{margin-top:0}
+.work-page > .feature + .feature{margin-top:32px}
+.work-page .project-actions{column-gap:24px;row-gap:18px}
+.work-page .project-actions .safe-project-note{flex-basis:100%;max-width:none;margin-top:4px}
+.case-page-actions{column-gap:24px;row-gap:18px}
+@media(max-width:620px){.work-page > .feature + .feature{margin-top:24px}}
