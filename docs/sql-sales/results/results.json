@@ -1,0 +1,118 @@
+{
+  "01_performance": [
+    {
+      "year": "2024",
+      "revenue": 7315313.55,
+      "profit": 2386487.65,
+      "orders": 23077,
+      "gross_margin": 0.32623176487083044,
+      "plan_attainment": 0.9803921333436975,
+      "revenue_growth": null,
+      "profit_growth": null
+    },
+    {
+      "year": "2025",
+      "revenue": 8242432.31,
+      "profit": 2573848.19,
+      "orders": 25547,
+      "gross_margin": 0.31226804093705685,
+      "plan_attainment": 0.9752326555663323,
+      "revenue_growth": 0.12673670836706652,
+      "profit_growth": 0.07850890826943946
+    }
+  ],
+  "02_revenue_drivers": [
+    {
+      "year": "2024",
+      "revenue_change": null,
+      "order_count_effect": null,
+      "order_value_effect": null,
+      "order_growth": null,
+      "order_value_growth": null
+    },
+    {
+      "year": "2025",
+      "revenue_change": 927118.7599999998,
+      "order_count_effect": 782979.7837023877,
+      "order_value_effect": 144138.97629761233,
+      "order_growth": 0.10703297655674482,
+      "order_value_growth": 0.01779868552028785
+    }
+  ],
+  "03_profit_drivers": [
+    {
+      "year": "2024",
+      "profit_change": null,
+      "revenue_effect": null,
+      "margin_effect": null,
+      "margin_change_pp": null
+    },
+    {
+      "year": "2025",
+      "profit_change": 187360.54000000004,
+      "revenue_effect": 302455.5893196558,
+      "margin_effect": -115095.0493196558,
+      "margin_change_pp": -1.3963723933773597
+    }
+  ],
+  "04_category_pressure": [
+    {
+      "category": "Furniture",
+      "revenue": 2983640.03,
+      "profit": 586447.13,
+      "margin": 0.1965542505474429,
+      "margin_change_pp": -3.978950032304726,
+      "within_category_margin_effect": -118717.54593754173
+    },
+    {
+      "category": "Technology",
+      "revenue": 3828477.28,
+      "profit": 1359086.15,
+      "margin": 0.3549939181041712,
+      "margin_change_pp": 0.003410406395704113,
+      "within_category_margin_effect": 130.56663401519887
+    },
+    {
+      "category": "Essentials",
+      "revenue": 1430315.0,
+      "profit": 628314.91,
+      "margin": 0.4392842905234162,
+      "margin_change_pp": 0.008868764323588518,
+      "within_category_margin_effect": 126.85126643493511
+    }
+  ],
+  "05_regional_plan": [
+    {
+      "region": "West",
+      "revenue": 2360569.56,
+      "plan": 2673280.52,
+      "plan_variance": -312710.95999999996,
+      "plan_attainment": 0.8830235144944684,
+      "shortfall_rank": 1
+    },
+    {
+      "region": "North",
+      "revenue": 1932423.52,
+      "plan": 1944677.87,
+      "plan_variance": -12254.350000000093,
+      "plan_attainment": 0.993698519333693,
+      "shortfall_rank": 2
+    },
+    {
+      "region": "East",
+      "revenue": 1758474.74,
+      "plan": 1713817.14,
+      "plan_variance": 44657.60000000009,
+      "plan_attainment": 1.0260573890631064,
+      "shortfall_rank": 3
+    },
+    {
+      "region": "South",
+      "revenue": 2190964.49,
+      "plan": 2119984.43,
+      "plan_variance": 70980.06000000006,
+      "plan_attainment": 1.0334814062761772,
+      "shortfall_rank": 4
+    }
+  ]
+}
