@@ -31,12 +31,41 @@ test("Excel case study publishes its reviewed package and Work omits decorative 
   assert.match(work, /href="\/work\/sales-profitability"/);
   assert.doesNotMatch(work, /<span>0[1-9]<\/span>|0[1-9] · FEATURED/);
   assert.match(page, /fictional Northstar Supply data/);
-  assert.match(page, /not establish the business cause/);
+  assert.match(page, /does not identify the business cause/);
   for (const file of ["sales-profitability-dashboard.xlsx", "sales-profitability-package.zip", "dashboard.pdf", "dashboard.png", "README.md"]) {
     const published = await readFile(join(docs, "sales-profitability", file));
     const source = await readFile(join(root, "public/sales-profitability", file));
     assert.deepEqual(published, source);
   }
+});
+
+test("each case study publishes three scoped findings with evidence", async () => {
+  for (const route of ["sales-profitability", "sql-sales-investigation", "federal-contracting-performance", "washington-ev-market"]) {
+    const html = await readFile(join(docs, `work/${route}/index.html`), "utf8");
+    assert.match(html, /id="key-findings"/);
+    assert.equal((html.match(/class="finding-metric"/g) || []).length, 3, route);
+    assert.equal((html.match(/<span>Decision to inform<\/span>/g) || []).length, 3, route);
+  }
+  const ev = await readFile(join(docs, "work/washington-ev-market/index.html"), "utf8");
+  assert.match(ev, /July 30, 2026/);
+  assert.match(ev, /not registration dates/);
+  const federal = await readFile(join(docs, "work/federal-contracting-performance/index.html"), "utf8");
+  assert.match(federal, /id="validated-results"/);
+  assert.match(federal, /id="quality-control"/);
+});
+
+test("video is available with controls, captions, transcript and exact exported assets", async () => {
+  const page = await readFile(join(docs, "work/sales-profitability/index.html"), "utf8");
+  assert.match(page, /<video[^>]*controls=""[^>]*preload="none"/);
+  assert.match(page, /<track kind="captions"/);
+  for (const name of ["dashboard-demo.mp4", "dashboard-demo.vtt", "demo-poster.jpg", "demo-transcript.md"]) {
+    assert.deepEqual(await readFile(join(docs, "sales-profitability", name)), await readFile(join(root, "public/sales-profitability", name)));
+  }
+  const captions = await readFile(join(docs, "sales-profitability/dashboard-demo.vtt"), "utf8");
+  assert.match(captions, /^WEBVTT/);
+  assert.match(captions, /00:01:12\.000/);
+  const transcript = await readFile(join(docs, "sales-profitability/demo-transcript.md"), "utf8");
+  assert.match(transcript, /exported workbook views, not a recording of mouse clicks/);
 });
 
 test("SQL investigation, walkthrough and three homepage projects form a complete path", async () => {

@@ -114,4 +114,19 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:620px){.home-proof{margin-left:14px;margin-right:14px}}
 .contact-page .contact-options{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-options .underlink{overflow-wrap:anywhere}@media(max-width:760px){.contact-page .contact-options{grid-template-columns:1fr}}
+
+/* Evidence summaries follow the portfolio's blue, white and navy palette. */
+.key-findings{padding-top:64px;padding-bottom:64px;scroll-margin-top:100px}
+.finding-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.finding-cards article{padding:28px;background:#fff;border:1px solid #dce4ee;border-radius:14px;display:flex;flex-direction:column;min-width:0}
+.finding-metric{font:600 clamp(24px,2.4vw,34px)/1.2 Georgia,serif;color:#315ed1;display:block;margin-bottom:20px}
+.finding-cards h3{font:400 25px/1.25 Georgia,serif;margin:0 0 16px;color:#142033}
+.finding-cards p{font:16px/1.65 Arial,sans-serif;color:#405066;margin:0 0 22px}
+.finding-implication{border-left:3px solid #a7c4ef;padding-left:16px;margin-top:auto}
+.finding-implication>span{font:700 13px/1.5 Arial,sans-serif;color:#142033;display:block;margin-bottom:7px}
+.finding-cards a{font:700 14px/1.5 Arial,sans-serif;color:#3155b5;min-height:44px;display:flex;align-items:center;gap:6px;margin-top:10px}
+.demo-section{padding-top:64px;padding-bottom:64px;scroll-margin-top:100px}
+.demo-section video{display:block;width:100%;height:auto;background:#142033;border:1px solid #dce4ee;border-radius:14px}
+@media(max-width:900px){.finding-cards{grid-template-columns:1fr}.finding-cards article{padding:24px}.finding-metric{font-size:30px}.key-findings,.demo-section{padding-top:44px;padding-bottom:44px}}
+.key-findings .dashboard-heading>p,.demo-section .dashboard-heading>p{font-size:16px;line-height:1.65}
 .contact-page .contact-options article:last-child{grid-column:auto}

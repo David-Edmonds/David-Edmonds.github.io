@@ -4,6 +4,21 @@ A public, decision-focused portfolio for **David Edmonds**, a senior data analys
 
 **Live site:** [david-edmonds.github.io](https://david-edmonds.github.io/)
 
+## Explore the work
+
+![Sales and profitability demo preview](public/sales-profitability/demo-poster.jpg)
+
+| Project | Business question | Start here |
+| --- | --- | --- |
+| **Excel · Sales & Profitability** | Is higher revenue producing stronger profit? | [Watch the 72-second demo](https://david-edmonds.github.io/work/sales-profitability/#demo) · [Download project](https://david-edmonds.github.io/sales-profitability/sales-profitability-package.zip) · [Workbook guide](public/sales-profitability/README.md) |
+| **SQL · Sales Investigation** | Which contributions reconcile to the change? | [Five queries and setup](public/sql-sales/README.md) · [Download project](https://david-edmonds.github.io/sql-sales/sql-sales-project.zip) |
+| **Power BI · Federal Contracting** | How do obligations, competition and goal context compare? | [Case study and findings](https://david-edmonds.github.io/work/federal-contracting-performance/#key-findings) · [Review guide](project-docs/PROJECT_GUIDE.md#federal-contracting-performance) |
+| **Tableau · Washington EV** | Where is the registered fleet concentrated? | [Snapshot findings](https://david-edmonds.github.io/work/washington-ev-market/#key-findings) · [Project repository](https://github.com/David-Edmonds/washington-ev-analytics) |
+
+The Excel and SQL examples share **576 fictional records**. Federal and EV case studies use public-data portfolio evidence. None is presented as client work or proof of a realized business outcome.
+
+**Two-minute review:** watch the demo, read the three linked findings, then open the workbook or run the SQL checks. [Project review guide](project-docs/PROJECT_GUIDE.md) explains the available evidence and limitations.
+
 ## What is included
 
 - Washington EV Market Overview Tableau case study

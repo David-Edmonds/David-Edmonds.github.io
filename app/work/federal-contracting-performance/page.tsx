@@ -1,3 +1,5 @@
+import { KeyFindings } from "../../components/KeyFindings";
+import { federalFindings } from "../findings";
 import { ProjectContact } from "../../components/ProjectContact";
 import type { Metadata } from "next";
 
@@ -94,6 +96,8 @@ export default function FederalContractingPerformancePage() {
         </div>
       </section>
 
+
+<KeyFindings scope="Independent public-data portfolio model · FY2023–FY2025. Findings refer to the published, validated model, not a current federal spending estimate." findings={federalFindings} />
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
@@ -187,7 +191,7 @@ export default function FederalContractingPerformancePage() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section} id="validated-results">
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
             <p className={styles.sectionLabel}>Validated results</p>
@@ -226,7 +230,7 @@ export default function FederalContractingPerformancePage() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section} id="quality-control">
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
             <p className={styles.sectionLabel}>Quality control</p>
