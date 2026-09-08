@@ -47,3 +47,39 @@
 .work-page .project-actions .safe-project-note{flex-basis:100%;max-width:none;margin-top:4px}
 .case-page-actions{column-gap:24px;row-gap:18px}
 @media(max-width:620px){.work-page > .feature + .feature{margin-top:24px}}
+
+/* A consistent path from homepage projects to analysis and guided exploration. */
+.home-project-grid.project-preview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;overflow:visible;margin-right:0;padding:0}
+.home-project-grid article{display:flex;flex-direction:column;min-width:0}
+.home-project-grid .project-image{height:230px;padding:20px}
+.home-project-grid article>div:last-child{display:flex;flex:1;flex-direction:column;padding:26px}
+.home-project-grid h3{font-size:29px;line-height:1.16}
+.home-project-story{margin:8px 0 24px}
+.home-project-story dt{font-size:12px;font-weight:800;color:var(--blue);margin:16px 0 5px}
+.home-project-story dd{margin:0;font-size:16px;line-height:1.55;color:#405066}
+.home-project-links{margin-top:auto;display:flex;flex-direction:column;gap:16px}
+.home-project-links a{font-size:14px;line-height:1.5}
+.walkthrough{padding-top:40px;padding-bottom:96px;scroll-margin-top:90px}
+.walkthrough-controls{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 24px}
+.walkthrough button{font:700 15px Arial,sans-serif;border:1px solid #bccbdc;border-radius:8px;background:white;color:var(--navy);padding:13px 18px;cursor:pointer}
+.walkthrough button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:white}
+.walkthrough button:focus-visible,.home-project-links a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.walkthrough button:disabled{opacity:.45;cursor:default}
+.walkthrough-panel{display:grid;grid-template-columns:.85fr 1.5fr;gap:32px;align-items:center;padding:32px;border:1px solid #d7e0e9;border-radius:16px;background:white}
+.walkthrough-panel img{width:100%;height:auto}
+.walkthrough-filter,.sql-skill{font-size:12px;line-height:1.6;font-weight:700;color:#365987}
+.walkthrough-copy h3{font:400 29px/1.15 Georgia,serif;margin:18px 0}
+.walkthrough-copy p{font-size:16px;line-height:1.65;color:#34455b}
+.walkthrough-copy .walkthrough-action{border-top:1px solid #d7e0e9;padding-top:18px}
+.walkthrough-navigation{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:26px}
+.walkthrough-navigation button{padding:10px;font-size:13px}.walkthrough-navigation span{font-size:12px;color:#405066}
+.sql-finding{display:grid;grid-template-columns:1fr 1fr;gap:56px;padding:38px 0;border-top:1px solid #cad5e1}
+.sql-finding h3{font:400 30px/1.15 Georgia,serif;margin:12px 0}
+.sql-finding strong{display:block;font:400 32px Georgia,serif;color:var(--blue);margin-bottom:18px}
+.sql-finding p{font-size:17px;line-height:1.65;color:#405066;margin:0}
+.sql-preview{background:#14253a!important;color:white;min-width:0;gap:24px}
+.sql-preview>span{font-size:12px;letter-spacing:.12em;color:#a8dcff}
+.sql-preview pre{font-size:14px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.sql-preview p{font-size:15px;line-height:1.7;color:#c4d3e5}
+@media(max-width:1000px){.home-project-grid.project-preview-grid{grid-template-columns:1fr}.home-project-grid article{display:grid;grid-template-columns:1fr 1fr}.home-project-grid .project-image{height:auto;min-height:260px}.walkthrough-panel{grid-template-columns:1fr}}
+@media(max-width:620px){.home-project-grid article{display:flex}.home-project-grid .project-image{height:230px;min-height:0}.walkthrough{padding-bottom:62px}.walkthrough-panel{padding:20px;gap:18px}.walkthrough-controls{gap:8px}.walkthrough-controls button{flex:1 1 100%;text-align:left}.sql-finding{grid-template-columns:1fr;gap:24px;padding:30px 0}}

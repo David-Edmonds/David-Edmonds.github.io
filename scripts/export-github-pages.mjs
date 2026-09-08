@@ -21,6 +21,7 @@ const htmlRoutes = [
   "/tools/what-changed",
   "/work",
   "/work/sales-profitability",
+  "/work/sql-sales-investigation",
   "/work/federal-contracting-performance",
   "/work/washington-ev-market",
 ];

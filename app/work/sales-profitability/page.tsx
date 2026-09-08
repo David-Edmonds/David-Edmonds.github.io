@@ -1,3 +1,4 @@
+import Walkthrough from "./Walkthrough";
 import type { Metadata } from "next";
 
 const title = "Sales & Profitability in Excel | David Edmonds";
@@ -18,6 +19,7 @@ export default function SalesProfitability() {
       <div className="case-page-actions">
         <a className="button blue" href={`${base}/sales-profitability-package.zip`} download>Download project <span>↓</span></a>
         <a className="secondary-action" href={`${base}/sales-profitability-dashboard.xlsx`} download>Excel workbook only ↓</a>
+        <a className="secondary-action" href="#walkthrough">Take the one-minute tour ↓</a>
         <a className="secondary-action" href="https://github.com/David-Edmonds/David-Edmonds.github.io/tree/main/public/sales-profitability">View on GitHub ↗</a>
       </div>
       <p className="safe-project-note">Independent portfolio example · fictional Northstar Supply data · no client information.</p>
@@ -32,6 +34,7 @@ export default function SalesProfitability() {
       <a href={`${base}/dashboard.png`} aria-label="Open full-size sales dashboard preview"><img src={`${base}/dashboard.png`} width="1684" height="1191" alt="2025 fictional sample: $8.24M net revenue, $2.57M gross profit, 31.2% margin, 97.5% plan attainment; revenue growth adds $302K in profit while lower margins offset $115K." style={{ width: "100%", height: "auto", display: "block", borderRadius: "12px", border: "1px solid #dce4ee" }}/></a>
       <div className="case-page-actions"><a className="secondary-action" href={`${base}/dashboard.pdf`}>Open one-page PDF ↗</a><a className="secondary-action" href={`${base}/README.md`}>Read the workbook guide ↗</a></div>
     </section>
+    <Walkthrough />
     <section className="case-method"><div className="shell">
       <div className="section-title"><span>WHAT THE SAMPLE REVEALS</span><h2>More sales.<br/><em>Less profit per dollar.</em></h2></div>
       <div className="method-grid">

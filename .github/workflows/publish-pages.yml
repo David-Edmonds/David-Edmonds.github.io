@@ -43,6 +43,11 @@ jobs:
       - name: Build, test, and generate docs
         run: npm test
 
+      - name: Validate SQL investigation
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 public/sql-sales/validate.py
+
       - name: Commit generated GitHub Pages site
         shell: bash
         run: |
