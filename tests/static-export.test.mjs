@@ -10,6 +10,24 @@ const docs = join(root, "docs");
 const resumeSize = 8_565;
 const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
+test('sales projects connect through a scoped planner case study', async () => {
+  const routes=['sales-profitability','sql-sales-investigation','profit-scenario-planner'];
+  for(const route of routes){
+    const html=await readFile(join(docs,`work/${route}/index.html`),'utf8');
+    assert.match(html,/Connected sales projects/);
+    for(const related of routes) assert.ok(html.includes(`href="/work/${related}"`));
+    assert.match(html,/separate monthly example/);
+    assert.match(html,/does not import or forecast the dashboard results/);
+  }
+  const planner=await readFile(join(docs,'work/profit-scenario-planner/index.html'),'utf8');
+  for(const value of ['$15,000.00','$17,512.50','$2,512.50','$94,762.50']) assert.ok(planner.includes(value));
+  assert.match(planner,/not a forecast of demand/);
+  assert.match(planner,/href="\/tools\/profit-planner"/);
+  assert.match(await readFile(join(docs,'work/index.html'),'utf8'),/href="\/work\/profit-scenario-planner"/);
+  assert.match(await readFile(join(docs,'tools/profit-planner/index.html'),'utf8'),/href="\/work\/profit-scenario-planner"/);
+  assert.match(await readFile(join(docs,'review/index.html'),'utf8'),/name="project_connections"/);
+});
+
 test('profit planner publishes complete results and keeps assumptions local', async () => {
   const html=await readFile(join(docs,'tools/profit-planner/index.html'),'utf8');
   assert.match(html,/Profit Scenario Planner/);
@@ -69,6 +87,7 @@ const htmlFiles = [
   "tools/profit-planner/index.html",
   "work/index.html",
   "work/sales-profitability/index.html",
+  "work/profit-scenario-planner/index.html",
   "work/sql-sales-investigation/index.html",
   "work/federal-contracting-performance/index.html",
   "work/washington-ev-market/index.html",
