@@ -114,3 +114,4 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:620px){.home-proof{margin-left:14px;margin-right:14px}}
 .contact-page .contact-options{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-options .underlink{overflow-wrap:anywhere}@media(max-width:760px){.contact-page .contact-options{grid-template-columns:1fr}}
+.contact-page .contact-options article:last-child{grid-column:auto}
