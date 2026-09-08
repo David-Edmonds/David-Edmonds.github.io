@@ -53,7 +53,7 @@ test("SQL investigation, walkthrough and three homepage projects form a complete
   assert.match(excel,/These are guided previews/);
   assert.match(sql,/576 fictional monthly records/);
   assert.match(sql,/arithmetic, not causality/);
-  assert.equal((sql.match(/href="\/sql-sales\/queries\/[^\"]+">Read SQL/g)||[]).length,5);
+  assert.equal((sql.match(/href="\/sql-sales\/queries\/[^"]+">Read SQL/g)||[]).length,5);
   const results=JSON.parse(await readFile(join(docs,"sql-sales/results/results.json"),"utf8"));
   assert.equal(results["01_performance"][1].revenue,8242432.31);
   assert.equal(results["01_performance"][0].revenue_growth,null);
