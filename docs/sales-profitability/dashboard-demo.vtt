@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:12.000
+This fictional example asks whether higher sales produce stronger profit. Start with the full-year 2025 view, with all regions and channels selected.
+
+00:00:12.000 --> 00:00:24.000
+Revenue is $8.24M and gross profit is $2.57M. Revenue grew 12.7%; profit grew 7.9%. Gross margin is 31.2%, down about 1.4 percentage points. Plan attainment is 97.5%.
+
+00:00:24.000 --> 00:00:36.000
+Choose Q3, West and Online in the blue dropdowns. The resulting view has about $313K revenue, $91K gross profit and 88.6% plan attainment. Headline metrics follow Q3; the trend retains full-year context.
+
+00:00:36.000 --> 00:00:48.000
+Reset to the full-year view. Revenue growth contributes $302,455.59 to gross profit. The margin effect offsets $115,095.05. The two reconcile to the $187,360.54 increase.
+
+00:00:48.000 --> 00:01:00.000
+Furniture has a 19.7% gross margin. The companion SQL investigation shows the largest category margin decline, about 4.0 percentage points. West has the largest annual revenue gap to plan, about $313K.
+
+00:01:00.000 --> 00:01:12.000
+Use these signals to prioritize a review, not to claim a cause. Open Analysis for formulas and checks, and Data for the 576 fictional monthly records. Download the workbook or follow the SQL investigation to reproduce the results.
