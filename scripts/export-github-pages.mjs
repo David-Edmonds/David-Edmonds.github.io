@@ -23,6 +23,7 @@ const htmlRoutes = [
   "/work",
   "/work/sales-profitability",
   "/work/profit-scenario-planner",
+  "/work/executive-brief",
   "/work/sql-sales-investigation",
   "/work/federal-contracting-performance",
   "/work/washington-ev-market",
@@ -126,3 +127,6 @@ if (resumeInfo.size !== resumeSize || actualResumeHash !== resumeSha256) {
 }
 
 console.log(`Static GitHub Pages export written to ${outputDir}`);
+
+
+
