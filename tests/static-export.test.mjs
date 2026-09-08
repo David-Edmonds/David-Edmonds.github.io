@@ -247,6 +247,7 @@ test("consulting offers and project inquiries retain a clear contact path", asyn
     ["sql-sales-investigation", "analysis", "sql"],
     ["federal-contracting-performance", "dashboards", "federal"],
     ["washington-ev-market", "dashboards", "ev"],
+    ["executive-brief", "health-check", "brief"],
   ]) {
     const html = await readFile(join(docs, `work/${route}/index.html`), "utf8");
     assert.ok(html.includes(`/contact?topic=${topic}&amp;from=${source}#inquiry`), route);
@@ -259,4 +260,12 @@ test("consulting offers and project inquiries retain a clear contact path", asyn
   assert.match(contact, /mailto:boldproofanalytics@gmail.com\?subject=/);
   const services = await readFile(join(docs, "services/index.html"), "utf8");
   assert.equal((services.match(/>Discuss this service/g) || []).length, 3);
+  for (const label of ['Reporting Health Check','Dashboard Build','Reporting Automation']) {
+    assert.ok(services.includes(label));
+    assert.ok(contact.includes(label));
+  }
+  const brief = await readFile(join(docs, 'work/executive-brief/index.html'), 'utf8');
+  assert.doesNotMatch(brief, /CURRENT PROJECT/);
+  const source = await readFile(join(root, 'app/contact/InquiryDraft.tsx'), 'utf8');
+  assert.doesNotMatch(source, /\b(fetch|XMLHttpRequest|sendBeacon|localStorage|sessionStorage)\b/);
 });
