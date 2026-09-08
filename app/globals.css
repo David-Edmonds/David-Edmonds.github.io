@@ -129,3 +129,4 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 .demo-section video{display:block;width:100%;height:auto;background:#142033;border:1px solid #dce4ee;border-radius:14px}
 @media(max-width:900px){.finding-cards{grid-template-columns:1fr}.finding-cards article{padding:24px}.finding-metric{font-size:30px}.key-findings,.demo-section{padding-top:44px;padding-bottom:44px}}
 .key-findings .dashboard-heading>p,.demo-section .dashboard-heading>p{font-size:16px;line-height:1.65}
+.contact-page .contact-options article:last-child{grid-column:auto}
