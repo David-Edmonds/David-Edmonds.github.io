@@ -4,6 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://david-edmonds.github.io";
   return [
     { url: `${base}/work/profit-scenario-planner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/work/executive-brief`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/tools/profit-planner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/work/sql-sales-investigation`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/work/sales-profitability`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
@@ -18,3 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];
 }
+
+
+

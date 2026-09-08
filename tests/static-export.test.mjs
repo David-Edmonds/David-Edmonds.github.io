@@ -24,6 +24,11 @@ test('sales projects connect through a scoped planner case study', async () => {
   assert.match(planner,/not a forecast of demand/);
   assert.match(planner,/href="\/tools\/profit-planner"/);
   assert.match(await readFile(join(docs,'work/index.html'),'utf8'),/href="\/work\/profit-scenario-planner"/);
+  const brief=await readFile(join(docs,'work/executive-brief/index.html'),'utf8');
+  assert.match(brief,/Sales grew faster than profit/);
+  assert.match(brief,/\$302,455\.59/);
+  assert.match(brief,/does not prove whether pricing/);
+  assert.match(brief,/href="\/executive-brief\.pdf"/);
   assert.match(await readFile(join(docs,'tools/profit-planner/index.html'),'utf8'),/href="\/work\/profit-scenario-planner"/);
   assert.match(await readFile(join(docs,'review/index.html'),'utf8'),/name="project_connections"/);
 });
@@ -88,6 +93,7 @@ const htmlFiles = [
   "work/index.html",
   "work/sales-profitability/index.html",
   "work/profit-scenario-planner/index.html",
+  "work/executive-brief/index.html",
   "work/sql-sales-investigation/index.html",
   "work/federal-contracting-performance/index.html",
   "work/washington-ev-market/index.html",
