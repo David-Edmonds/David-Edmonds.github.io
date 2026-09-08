@@ -96,7 +96,7 @@ export default function FederalContractingPerformancePage() {
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
-            <p className={styles.sectionLabel}>01 · The question</p>
+            <p className={styles.sectionLabel}>The question</p>
             <h2>Turn a very large award dataset into an answer leaders can use.</h2>
           </div>
           <div className={styles.copy}>
@@ -118,7 +118,7 @@ export default function FederalContractingPerformancePage() {
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
-            <p className={styles.sectionLabel}>02 · The model</p>
+            <p className={styles.sectionLabel}>The model</p>
             <h2>Keep the detail needed for analysis without letting the fact table control the report.</h2>
           </div>
           <div className={styles.copy}>
@@ -160,7 +160,7 @@ export default function FederalContractingPerformancePage() {
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
-            <p className={styles.sectionLabel}>03 · The report</p>
+            <p className={styles.sectionLabel}>The report</p>
             <h2>Make the main performance signals visible before asking the user to explore.</h2>
           </div>
           <div className={styles.copy}>
@@ -189,7 +189,7 @@ export default function FederalContractingPerformancePage() {
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
-            <p className={styles.sectionLabel}>04 · Validated results</p>
+            <p className={styles.sectionLabel}>Validated results</p>
             <h2>Separate a useful insight from a number that merely looks precise.</h2>
           </div>
           <div className={styles.copy}>
@@ -228,7 +228,7 @@ export default function FederalContractingPerformancePage() {
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
-            <p className={styles.sectionLabel}>05 · Quality control</p>
+            <p className={styles.sectionLabel}>Quality control</p>
             <h2>Build reconciliation into the analysis, not into the final explanation after something breaks.</h2>
           </div>
           <div className={styles.copy}>
@@ -256,7 +256,7 @@ export default function FederalContractingPerformancePage() {
       <section className={styles.section}>
         <div className={`${styles.shell} ${styles.sectionGrid}`}>
           <div>
-            <p className={styles.sectionLabel}>06 · Why it matters</p>
+            <p className={styles.sectionLabel}>Why it matters</p>
             <h2>The deliverable is not only a dashboard. It is a defensible path from source data to decision.</h2>
           </div>
           <div className={styles.copy}>

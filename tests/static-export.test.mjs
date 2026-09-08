@@ -19,9 +19,24 @@ const htmlFiles = [
   "tools/index.html",
   "tools/what-changed/index.html",
   "work/index.html",
+  "work/sales-profitability/index.html",
   "work/federal-contracting-performance/index.html",
   "work/washington-ev-market/index.html",
 ];
+
+test("Excel case study publishes its reviewed package and Work omits decorative numbering", async () => {
+  const work = await readFile(join(docs, "work/index.html"), "utf8");
+  const page = await readFile(join(docs, "work/sales-profitability/index.html"), "utf8");
+  assert.match(work, /href="\/work\/sales-profitability"/);
+  assert.doesNotMatch(work, /<span>0[1-9]<\/span>|0[1-9] · FEATURED/);
+  assert.match(page, /fictional Northstar Supply data/);
+  assert.match(page, /not establish the business cause/);
+  for (const file of ["sales-profitability-dashboard.xlsx", "sales-profitability-package.zip", "dashboard.pdf", "dashboard.png", "README.md"]) {
+    const published = await readFile(join(docs, "sales-profitability", file));
+    const source = await readFile(join(root, "public/sales-profitability", file));
+    assert.deepEqual(published, source);
+  }
+});
 
 function internalTargetToFile(target) {
   const clean = target.split(/[?#]/, 1)[0];
