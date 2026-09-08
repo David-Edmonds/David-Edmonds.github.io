@@ -2,14 +2,34 @@
 
 Independent portfolio work by David Edmonds. Fictional Northstar Supply data; no client records or claimed business outcomes. This uses the exact 576 monthly facts from the accompanying Excel sales dashboard, with currency converted to integer USD cents.
 
+![Reconciled profit contributions in the companion Excel dashboard](preview.jpg)
+
+[Read the case study](https://david-edmonds.github.io/work/sql-sales-investigation/) · [Download project](https://david-edmonds.github.io/sql-sales/sql-sales-project.zip) · [Watch the companion demo](https://david-edmonds.github.io/work/sales-profitability/#demo)
+
+**Start without installing anything:** open [annual performance](results/01_performance.csv), [profit contributions](results/03_profit_drivers.csv), or [category pressure](results/04_category_pressure.csv). Each result has a corresponding numbered query in `queries/`.
+
+## Project map
+
+| File or folder | Purpose |
+| --- | --- |
+| `sales.csv` | 576 fictional records; currency fields use integer USD cents |
+| `schema.sql` | SQLite table, constraints and annual view |
+| `queries/` | Five numbered investigations with readable SQL |
+| `run.py` | Loads an in-memory database and writes results |
+| `validate.py` | Independently checks coverage, totals and reconciliations |
+| `results/` | Ready-to-read CSV outputs and combined JSON |
+| `preview.jpg` | Companion dashboard profit-contribution view |
+
 ## Run it
 
-Install Python 3.8 or newer with SQLite 3.25 or newer. No third-party Python packages, database server, account or network connection are needed.
+Extract the ZIP first, open a terminal in the extracted folder, and install Python 3.8 or newer with SQLite 3.25 or newer. No third-party Python packages, database server, account or network connection are needed.
 
 ```text
 python run.py
 python validate.py
 ```
+
+Successful execution prints `Five investigations complete` followed by a `PASS` validation message. If Python is unavailable on Windows as `python`, try `py run.py` and `py validate.py`.
 
 The runner creates an in-memory SQLite database, loads `sales.csv`, runs the five files in `queries/`, and writes CSV and JSON results to `results/`. Re-running replaces those result files. `schema.sql` defines the table, constraints and annual view. Downloaded results are already included for readers who do not want to execute code.
 

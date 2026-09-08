@@ -1,3 +1,5 @@
+import { KeyFindings } from "../../components/KeyFindings";
+import { sqlFindings } from "../findings";
 import { ProjectContact } from "../../components/ProjectContact";
 import type { Metadata } from "next";
 
@@ -19,6 +21,8 @@ export default function SQLSales() {
  return <main id="top">
   <section className="case-hero shell"><a className="back-link" href="/work">← Back to Work</a><span>SQL · SALES ANALYSIS · RECONCILIATION</span><h1>Five questions.<br/><em>Traceable answers.</em></h1><p>A reproducible SQL investigation into why stronger sales do not always produce equally strong profit. The same source records power the Excel dashboard.</p><div className="case-page-actions"><a className="button blue" href="/sql-sales/sql-sales-project.zip" download>Download project <span>↓</span></a><a className="secondary-action" href="https://github.com/David-Edmonds/David-Edmonds.github.io/tree/main/public/sql-sales">View SQL on GitHub ↗</a><a className="secondary-action" href="/work/sales-profitability#walkthrough">Take the dashboard tour →</a></div><p className="safe-project-note">Independent portfolio work · 576 fictional monthly records · complete 2024–2025 sample · USD.</p></section>
   <section className="case-summary"><div className="shell case-summary-grid"><div><span>THE QUESTION</span><p>Where does sales growth turn into profit, and where does it fall short?</p></div><div><span>THE APPROACH</span><p>Five readable queries, matching-year comparisons, integer-cent source amounts, and independent reconciliation checks.</p></div><div><span>TRY IT</span><p>Download the source CSV, SQLite schema, queries, Python runner and result tables. No database server or paid tools required.</p></div></div></section>
+<KeyFindings scope="Full-year 2025 vs 2024 · 576 fictional monthly records. Download the linked results to inspect the exact figures." findings={sqlFindings} />
+
   <section className="section shell sql-findings" aria-label="Five SQL findings"><div className="dashboard-heading"><div><span>FINDINGS FROM THE FICTIONAL 2025 SAMPLE</span><h2>Follow the evidence.</h2></div><p>Each answer links to the exact query and its downloadable results. Growth comparisons use the same full-year scope.</p></div>
    {findings.map(f=><article className="sql-finding" key={f.file}><div><span className="sql-skill">{f.skill}</span><h3>{f.title}</h3><div className="case-page-actions"><a className="secondary-action" href={`/sql-sales/queries/${f.file}.sql`}>Read SQL ↗</a><a className="secondary-action" href={`/sql-sales/results/${f.file}.csv`} download>Download results ↓</a></div></div><div><strong>{f.value}</strong><p>{f.text}</p></div></article>)}
   </section>

@@ -1,3 +1,5 @@
+import { KeyFindings } from "../../components/KeyFindings";
+import { evFindings } from "../findings";
 import { ProjectContact } from "../../components/ProjectContact";
 import type { Metadata } from "next";
 
@@ -17,6 +19,8 @@ export default function WashingtonEVCaseStudy() {
     <section className="case-hero shell"><a className="back-link" href="/work">← Back to portfolio</a><span>TABLEAU · MARKET ANALYSIS · DATA STORYTELLING</span><h1>Washington EV<br/><em>Market Overview</em></h1><p>An interactive executive dashboard designed to make Washington State electric-vehicle registration data understandable, explorable, and useful.</p><div className="case-page-actions"><a className="button blue" href="#dashboard">Explore dashboard <span>↓</span></a><a className="secondary-action" href="https://public.tableau.com/app/profile/david.edmonds5066/viz/WashingtonEVMarketOverview/Dashboard1#1" target="_blank" rel="noreferrer">Open on Tableau Public ↗</a><a className="secondary-action" href="https://github.com/David-Edmonds/washington-ev-analytics" target="_blank" rel="noreferrer">View project files ↗</a></div></section>
 
     <section className="case-summary"><div className="shell case-summary-grid"><div><span>THE QUESTION</span><p>How is electric-vehicle adoption changing across Washington’s counties, manufacturers, vehicle types, and model years?</p></div><div><span>THE APPROACH</span><p>Structure the analysis around a clear KPI hierarchy, responsive filters, geographic context, market share, and explicit data-quality controls.</p></div><div><span>THE RESULT</span><p>A decision-ready view that makes regional differences, adoption patterns, and market leaders visible without overwhelming the user.</p></div></div></section>
+<KeyFindings scope="Published snapshot labeled July 30, 2026 · all filters cleared. The live dashboard may change; these findings refer to the linked image." findings={evFindings} />
+
 
     <section className="dashboard-section shell" id="dashboard"><div className="dashboard-heading"><div><span>INTERACTIVE DASHBOARD</span><h2>Explore the data.</h2></div><p>Use the Tableau controls to filter by county, make, model year, and vehicle type. For the best small-screen experience, open the dashboard directly in Tableau.</p></div><div className="tableau-frame"><iframe src="https://public.tableau.com/views/WashingtonEVMarketOverview/Dashboard1?:showVizHome=no&:embed=true" title="Interactive Washington EV Market Overview Tableau dashboard" loading="lazy" allowFullScreen /></div><a className="mobile-tableau-link button blue" href="https://public.tableau.com/app/profile/david.edmonds5066/viz/WashingtonEVMarketOverview/Dashboard1#1" target="_blank" rel="noreferrer">Open full dashboard <span>↗</span></a></section>
 

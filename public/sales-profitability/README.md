@@ -2,6 +2,29 @@
 
 An independent Excel portfolio example by David Edmonds. All Northstar Supply data is fictional; this is not client work or evidence of business results.
 
+![Sales and profitability dashboard](dashboard.png)
+
+[Watch the 72-second demo](https://david-edmonds.github.io/work/sales-profitability/#demo) · [Download the complete project](https://david-edmonds.github.io/sales-profitability/sales-profitability-package.zip) · [Read key findings](https://david-edmonds.github.io/work/sales-profitability/#key-findings) · [Companion SQL](https://github.com/David-Edmonds/David-Edmonds.github.io/tree/main/public/sql-sales)
+
+## A quick first pass
+
+1. Open the workbook in **desktop Excel** with 2025 / Full year / All / All selected.
+2. Compare revenue growth (12.7%) with gross profit growth (7.9%). Margin is 31.2%, down about 1.4 percentage points.
+3. Change Quarter to Q3, Region to West and Channel to Online; inspect the changed KPIs, then reset the filters.
+4. Open **Analysis** to inspect the reconciled profit contributions and **Data** to see the fictional source rows.
+
+## Files in the download
+
+| File | Purpose |
+| --- | --- |
+| `sales-profitability-dashboard.xlsx` | Working Excel dashboard, formulas and source table |
+| `dashboard.pdf` / `dashboard.png` | Static full-year preview for quick review |
+| `dashboard-demo.mp4` | 72-second captioned visual walkthrough; no audio |
+| `demo-transcript.md` / `dashboard-demo.vtt` | Full transcript and optional captions |
+| `walkthrough-filtered.png` | Reviewed Q3 / West / Online view |
+| `demo-poster.jpg` | Video cover image |
+| `README.md` | Setup, definitions, checks and limitations |
+
 ## Start here
 
 Open `sales-profitability-dashboard.xlsx` in desktop Excel. The Dashboard opens with the complete 2025 sample. Choose the blue year, quarter, region and channel drop-downs to explore performance. The revenue trend always shows the selected full year; all other results use the selected quarter. Filtering the Data table does not filter the dashboard.

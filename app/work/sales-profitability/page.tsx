@@ -1,3 +1,5 @@
+import { KeyFindings } from "../../components/KeyFindings";
+import { salesFindings } from "../findings";
 import { ProjectContact } from "../../components/ProjectContact";
 import Walkthrough from "./Walkthrough";
 import type { Metadata } from "next";
@@ -20,7 +22,7 @@ export default function SalesProfitability() {
       <div className="case-page-actions">
         <a className="button blue" href={`${base}/sales-profitability-package.zip`} download>Download project <span>↓</span></a>
         <a className="secondary-action" href={`${base}/sales-profitability-dashboard.xlsx`} download>Excel workbook only ↓</a>
-        <a className="secondary-action" href="#walkthrough">Take the one-minute tour ↓</a>
+        <a className="secondary-action" href="#demo">Watch the 72-second demo ↓</a>
         <a className="secondary-action" href="https://github.com/David-Edmonds/David-Edmonds.github.io/tree/main/public/sales-profitability">View on GitHub ↗</a>
       </div>
       <p className="safe-project-note">Independent portfolio example · fictional Northstar Supply data · no client information.</p>
@@ -30,20 +32,23 @@ export default function SalesProfitability() {
       <div><span>THE APPROACH</span><p>Compare matching periods, separate growth and margin effects, and reconcile every contribution to the underlying totals.</p></div>
       <div><span>THE DELIVERABLE</span><p>A one-page Excel dashboard with four filters, three editable charts, supporting calculations and a fictional source table.</p></div>
     </div></section>
+<KeyFindings scope="Fictional Northstar Supply data · full-year 2025 vs 2024 · all regions and channels. These findings describe the sample, not client outcomes." findings={salesFindings} />
+
     <section className="dashboard-section shell" id="dashboard">
       <div className="dashboard-heading"><div><span>WORKBOOK PREVIEW</span><h2>See the story at a glance.</h2></div><p>This is the default 2025 view. Download the workbook to change year, quarter, region and channel in Excel.</p></div>
       <a href={`${base}/dashboard.png`} aria-label="Open full-size sales dashboard preview"><img src={`${base}/dashboard.png`} width="1684" height="1191" alt="2025 fictional sample: $8.24M net revenue, $2.57M gross profit, 31.2% margin, 97.5% plan attainment; revenue growth adds $302K in profit while lower margins offset $115K." style={{ width: "100%", height: "auto", display: "block", borderRadius: "12px", border: "1px solid #dce4ee" }}/></a>
       <div className="case-page-actions"><a className="secondary-action" href={`${base}/dashboard.pdf`}>Open one-page PDF ↗</a><a className="secondary-action" href={`${base}/README.md`}>Read the workbook guide ↗</a></div>
     </section>
+    <section className="demo-section shell" id="demo" aria-labelledby="demo-title">
+      <div className="dashboard-heading"><div><span>72-SECOND DASHBOARD DEMO</span><h2 id="demo-title">See how to read the result.</h2></div><p>A captioned video using actual workbook views: start with the question, narrow the filters, then inspect the profit drivers. No audio; all explanations appear on screen.</p></div>
+      <video controls playsInline preload="none" poster="/sales-profitability/demo-poster.jpg" width="1280" height="720" aria-label="Sales and profitability dashboard demo">
+        <source src="/sales-profitability/dashboard-demo.mp4" type="video/mp4"/>
+        <track kind="captions" src="/sales-profitability/dashboard-demo.vtt" srcLang="en" label="English"/>
+        Your browser does not support embedded video. Use the download link below.
+      </video>
+      <div className="case-page-actions"><a className="secondary-action" href="/sales-profitability/dashboard-demo.mp4" download>Download demo ↓</a><a className="secondary-action" href="/sales-profitability/demo-transcript.md">Read the full transcript ↗</a><a className="secondary-action" href="#walkthrough">Explore at your own pace ↓</a></div>
+    </section>
     <Walkthrough />
-    <section className="case-method"><div className="shell">
-      <div className="section-title"><span>WHAT THE SAMPLE REVEALS</span><h2>More sales.<br/><em>Less profit per dollar.</em></h2></div>
-      <div className="method-grid">
-        <article><h3>Growth has two components</h3><p>In the fictional 2025 sample, orders rise 10.7% and revenue per order rises 1.8%. The workbook separates their dollar contributions to the 12.7% revenue increase.</p></article>
-        <article><h3>Margin changes the result</h3><p>Revenue growth contributes about $302K to gross profit, while lower margins offset about $115K. Together they explain the $187K profit increase.</p></article>
-        <article><h3>A clear next investigation</h3><p>West has the largest revenue gap to plan, about $313K. That identifies where to investigate; it does not establish the business cause of the shortfall.</p></article>
-      </div>
-    </div></section>
     <section className="section shell">
       <div className="dashboard-heading"><div><span>TRANSPARENT BY DESIGN</span><h2>Useful detail, visible limits.</h2></div></div>
       <div className="method-grid">
