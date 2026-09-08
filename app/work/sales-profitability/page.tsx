@@ -1,3 +1,4 @@
+import { SalesJourney } from "../../components/SalesJourney";
 import { KeyFindings } from "../../components/KeyFindings";
 import { salesFindings } from "../findings";
 import { ProjectContact } from "../../components/ProjectContact";
@@ -58,6 +59,7 @@ export default function SalesProfitability() {
         <article><h3>Open and explore</h3><p>Verified in desktop Excel, including filters, recalculation and reconciliation. No macros or external connections. The guide explains the fixed source ranges and how to extend them.</p></article>
       </div>
     </section>
+  <SalesJourney current="excel"/>
   <ProjectContact source="sales" topic="analysis" title="Need a clearer view of sales and profit?" description="Discuss a dashboard that connects your revenue, margins and performance questions." />
  </main>;
 }

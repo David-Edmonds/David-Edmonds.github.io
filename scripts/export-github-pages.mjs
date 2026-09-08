@@ -22,6 +22,7 @@ const htmlRoutes = [
   "/tools/profit-planner",
   "/work",
   "/work/sales-profitability",
+  "/work/profit-scenario-planner",
   "/work/sql-sales-investigation",
   "/work/federal-contracting-performance",
   "/work/washington-ev-market",
