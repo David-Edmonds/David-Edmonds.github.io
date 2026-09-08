@@ -10,6 +10,22 @@ const docs = join(root, "docs");
 const resumeSize = 8_565;
 const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
+test('review exports a noindex form with local-only response download', async () => {
+  const html = await readFile(join(docs, 'review/index.html'), 'utf8');
+  const script = await readFile(join(docs, 'review/review.js'), 'utf8');
+  assert.match(html, /name="robots" content="noindex,nofollow"/);
+  assert.match(html, /Stop before sending a message or submitting an inquiry/);
+  assert.match(html, /Downloading does not send it/);
+  assert.equal((html.match(/<fieldset>/g) || []).length, 3);
+  assert.doesNotMatch(html + script, /\b(fetch|XMLHttpRequest|sendBeacon|localStorage|sessionStorage)\b/);
+  assert.match(script, /new Blob/);
+  assert.match(script, /URL.revokeObjectURL/);
+  for (const match of html.matchAll(/<(?:input|select|textarea) id="([^"]+)"/g)) {
+    assert.ok(html.includes(`for="${match[1]}"`), `Missing label: ${match[1]}`);
+  }
+  assert.deepEqual(await readFile(join(docs, 'review/review.js')), await readFile(join(root, 'public/review/review.js')));
+});
+
 test("worked example and capability download are published without upload behavior",async()=>{
  const analyzer=await readFile(join(docs,'tools/what-changed/index.html'),'utf8');
  assert.match(analyzer,/id="worked-example"/);
