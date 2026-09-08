@@ -137,3 +137,23 @@ test("published resume exactly matches the reviewed PDF", async () => {
   assert.equal(info.size, resumeSize);
   assert.equal(createHash("sha256").update(buffer).digest("hex"), resumeSha256);
 });
+
+test("consulting offers and project inquiries retain a clear contact path", async () => {
+  for (const [route, topic, source] of [
+    ["sales-profitability", "analysis", "sales"],
+    ["sql-sales-investigation", "analysis", "sql"],
+    ["federal-contracting-performance", "dashboards", "federal"],
+    ["washington-ev-market", "dashboards", "ev"],
+  ]) {
+    const html = await readFile(join(docs, `work/${route}/index.html`), "utf8");
+    assert.ok(html.includes(`/contact?topic=${topic}&amp;from=${source}#inquiry`), route);
+    assert.match(html, /Discuss a similar project/);
+  }
+  const contact = await readFile(join(docs, "contact/index.html"), "utf8");
+  assert.match(contact, /id="inquiry-topic"/);
+  assert.match(contact, /id="inquiry-goal"/);
+  assert.match(contact, /Nothing is sent until you send it there/);
+  assert.match(contact, /mailto:boldproofanalytics@gmail.com\?subject=/);
+  const services = await readFile(join(docs, "services/index.html"), "utf8");
+  assert.equal((services.match(/>Discuss this service/g) || []).length, 3);
+});

@@ -10,9 +10,9 @@ const links = [
 
 export function SiteHeader() {
   return (
-    <header className="site-header">
+    <><a className="skip-link" href="#top">Skip to content</a><header className="site-header">
       <div className="shell nav">
-        <a className="brand" href="/">
+        <a className="brand" href="/" aria-label="David Edmonds — Home">
           <span>DE</span>
           <div>
             <b>David Edmonds</b>
@@ -41,14 +41,14 @@ export function SiteHeader() {
           Let’s talk <span>↗</span>
         </a>
       </div>
-    </header>
+    </header></>
   );
 }
 
 export function SiteFooter() {
   return (
     <footer className="footer shell">
-      <a className="brand" href="/">
+      <a className="brand" href="/" aria-label="David Edmonds — Home">
         <span>DE</span>
         <div>
           <b>David Edmonds</b>

@@ -1,3 +1,4 @@
+import { ProjectContact } from "../../components/ProjectContact";
 import type { Metadata } from "next";
 
 const title = "Washington EV Market Overview | David Edmonds";
@@ -21,7 +22,7 @@ export default function WashingtonEVCaseStudy() {
 
     <section className="case-method"><div className="shell"><div className="section-title"><span>DESIGN DECISIONS</span><h2>Built for clarity,<br/><em>not decoration.</em></h2></div><div className="method-grid"><article><h3>Lead with the market</h3><p>Top-level KPIs answer the first questions quickly before the user moves into detailed exploration.</p></article><article><h3>Make filters purposeful</h3><p>Controls align with meaningful business dimensions rather than exposing every available field.</p></article><article><h3>Protect interpretation</h3><p>Data-quality checks and clear labels reduce the risk of drawing conclusions from incomplete or inconsistent values.</p></article></div></div></section>
 
-    <section className="contact"><div className="shell contact-grid"><div><span>HAVE A SIMILAR NEED?</span><h2>Turn your data into<br/><em>a useful view.</em></h2></div><div><p>If your team has a reporting process that is slow, unclear, or difficult to trust, let’s talk about the practical next step.</p><a className="contact-email" href="mailto:davidedmondsc@gmail.com?subject=Dashboard%20project%20inquiry">davidedmondsc@gmail.com <span>↗</span></a></div></div></section>
+    <ProjectContact source="ev" topic="dashboards" title="Need a dashboard that makes complex data easier to explore?" description="Discuss the audience, filters and comparisons that would make a dashboard useful for your team." />
 
   </main>
 }

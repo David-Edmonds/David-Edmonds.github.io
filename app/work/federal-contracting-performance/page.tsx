@@ -1,5 +1,6 @@
+import { ProjectContact } from "../../components/ProjectContact";
 import type { Metadata } from "next";
-import Link from "next/link";
+
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -275,23 +276,7 @@ export default function FederalContractingPerformancePage() {
         </div>
       </section>
 
-      <section className={styles.cta}>
-        <div className={styles.shell}>
-          <h2>Need a reporting model that people can trust before they use it?</h2>
-          <p>
-            I help teams turn complex operational data into clear measures, reliable reporting,
-            and decision-ready explanations.
-          </p>
-          <div className={styles.actions}>
-            <Link className={styles.primary} href="/contact/">
-              Discuss a role or project
-            </Link>
-            <Link className={styles.secondary} href="/work/">
-              Back to all work
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ProjectContact source="federal" topic="dashboards" title="Need a reporting model your team can trust?" description="Discuss source consolidation, KPI definitions and validation before the final dashboard." />
     </main>
   );
 }

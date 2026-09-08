@@ -1,3 +1,4 @@
+import { ProjectContact } from "../../components/ProjectContact";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,5 +23,6 @@ export default function SQLSales() {
    {findings.map(f=><article className="sql-finding" key={f.file}><div><span className="sql-skill">{f.skill}</span><h3>{f.title}</h3><div className="case-page-actions"><a className="secondary-action" href={`/sql-sales/queries/${f.file}.sql`}>Read SQL ↗</a><a className="secondary-action" href={`/sql-sales/results/${f.file}.csv`} download>Download results ↓</a></div></div><div><strong>{f.value}</strong><p>{f.text}</p></div></article>)}
   </section>
   <section className="case-method"><div className="shell"><div className="section-title"><span>REPRODUCIBLE AND REVIEWABLE</span><h2>Show the work.<br/><em>Check the answer.</em></h2></div><div className="method-grid"><article><h3>One source, two tools</h3><p>The CSV is exported from the reviewed Excel source table. The SQL totals match its $8,242,432.31 revenue and $2,573,848.19 gross profit for 2025.</p></article><article><h3>Checks that can fail</h3><p>Validation covers the full monthly grain, duplicate rejection, impossible discounts, independent totals, missing prior-year handling and both driver reconciliations.</p></article><article><h3>Limits stay visible</h3><p>No customer or transaction-level conclusions are supported by these monthly records. The contributions explain arithmetic, not causality. 2024 comparisons stay unavailable because 2023 is absent.</p></article></div><div className="case-page-actions"><a className="secondary-action" href="/sql-sales/README.md">Read setup and methodology ↗</a><a className="secondary-action" href="/sql-sales/validate.py">Inspect validation ↗</a></div></div></section>
+ <ProjectContact source="sql" topic="analysis" title="Need to explain a change in performance?" description="Discuss a SQL investigation with agreed measures, traceable calculations and a concise findings readout." />
  </main>;
 }
