@@ -10,6 +10,22 @@ const docs = join(root, "docs");
 const resumeSize = 8_565;
 const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
+test("worked example and capability download are published without upload behavior",async()=>{
+ const analyzer=await readFile(join(docs,'tools/what-changed/index.html'),'utf8');
+ assert.match(analyzer,/id="worked-example"/);
+ assert.match(analyzer,/Changed unique IDs/);
+ assert.match(analyzer,/\$116,000/);assert.match(analyzer,/\$145,000/);assert.match(analyzer,/\$22,000/);
+ assert.match(analyzer,/does not prove a newly acquired customer/);
+ assert.match(analyzer,/Nothing is uploaded/);
+ const services=await readFile(join(docs,'services/index.html'),'utf8');
+ assert.match(services,/href="\/david-edmonds-capability-statement.pdf"/);
+ assert.deepEqual(await readFile(join(docs,'david-edmonds-capability-statement.pdf')),await readFile(join(root,'public/david-edmonds-capability-statement.pdf')));
+ for(const file of ['page.tsx','WorkedExample.tsx']){
+  const source=await readFile(join(root,'app/tools/what-changed',file),'utf8');
+  assert.doesNotMatch(source,/\b(fetch|XMLHttpRequest|sendBeacon|localStorage|sessionStorage)\b/);
+ }
+});
+
 const htmlFiles = [
   "index.html",
   "404.html",

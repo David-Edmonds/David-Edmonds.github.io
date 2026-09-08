@@ -4,6 +4,8 @@ A public, decision-focused portfolio for **David Edmonds**, a senior data analys
 
 **Live site:** [david-edmonds.github.io](https://david-edmonds.github.io/)
 
+[One-page capability statement](public/david-edmonds-capability-statement.pdf) · [Report analyzer worked example](https://david-edmonds.github.io/tools/what-changed/#worked-example)
+
 ## Explore the work
 
 ![Sales and profitability demo preview](public/sales-profitability/demo-poster.jpg)
