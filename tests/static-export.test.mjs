@@ -20,6 +20,7 @@ const htmlFiles = [
   "tools/what-changed/index.html",
   "work/index.html",
   "work/sales-profitability/index.html",
+  "work/sql-sales-investigation/index.html",
   "work/federal-contracting-performance/index.html",
   "work/washington-ev-market/index.html",
 ];
@@ -36,6 +37,29 @@ test("Excel case study publishes its reviewed package and Work omits decorative 
     const source = await readFile(join(root, "public/sales-profitability", file));
     assert.deepEqual(published, source);
   }
+});
+
+test("SQL investigation, walkthrough and three homepage projects form a complete path", async () => {
+  const home=await readFile(join(docs,"index.html"),"utf8");
+  const sql=await readFile(join(docs,"work/sql-sales-investigation/index.html"),"utf8");
+  const excel=await readFile(join(docs,"work/sales-profitability/index.html"),"utf8");
+  assert.match(home,/home-project-grid/);
+  assert.match(home,/Take the walkthrough/);
+  assert.match(home,/Read the SQL investigation/);
+  assert.match(home,/Washington EV Market Overview/);
+  assert.match(home,/Federal Contracting Performance/);
+  assert.match(excel,/id="walkthrough"/);
+  assert.match(excel,/aria-pressed="true"/);
+  assert.match(excel,/These are guided previews/);
+  assert.match(sql,/576 fictional monthly records/);
+  assert.match(sql,/arithmetic, not causality/);
+  assert.equal((sql.match(/href="\/sql-sales\/queries\/[^\"]+">Read SQL/g)||[]).length,5);
+  const results=JSON.parse(await readFile(join(docs,"sql-sales/results/results.json"),"utf8"));
+  assert.equal(results["01_performance"][1].revenue,8242432.31);
+  assert.equal(results["01_performance"][0].revenue_growth,null);
+  assert.equal(results["04_category_pressure"][0].category,"Furniture");
+  await access(join(docs,"sql-sales/sql-sales-project.zip"));
+  await access(join(docs,"sales-profitability/walkthrough-filtered.png"));
 });
 
 function internalTargetToFile(target) {

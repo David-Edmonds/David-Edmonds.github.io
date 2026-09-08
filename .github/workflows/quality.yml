@@ -38,6 +38,11 @@ jobs:
       - name: Build and test rendered and static pages
         run: npm test
 
+      - name: Validate SQL investigation
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 public/sql-sales/validate.py
+
       - name: Capture full dependency audit for review
         if: always()
         run: npm audit --json > audit-full.json || true
