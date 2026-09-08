@@ -20,6 +20,7 @@ const htmlRoutes = [
   "/tools",
   "/tools/what-changed",
   "/work",
+  "/work/sales-profitability",
   "/work/federal-contracting-performance",
   "/work/washington-ev-market",
 ];
