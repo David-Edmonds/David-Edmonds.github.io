@@ -63,3 +63,9 @@ After a reviewed change reaches `main`, the **Publish GitHub Pages export** work
 - Only public, synthetic, or properly sanitized examples belong in this repository.
 
 See [AGENTS.md](AGENTS.md) for the required AI-assisted development workflow.
+
+## What Changed? Report Analyzer
+
+The Analytics Lab links to `/tools/what-changed`, an independent browser-only CSV comparison tool. It includes synthetic sample reports, added/missing ID detection, duplicate-ID and exact-row checks, field changes, additive measure contributions, source-row inspection, and evidence/summary downloads. IDs are trimmed and case-sensitive. Duplicate groups are summed and flagged rather than silently paired or removed. Blank IDs and invalid measure values block comparison. No report contents are uploaded or persisted.
+
+The engine tests are included in `npm test`; rendered/static tests verify the route, internal links, metadata, sample reconciliation and absence of upload/storage calls. The page's CSS is scoped to `.report-analyzer`. No new dependencies are required. Input limits are 5 MB and 50,000 records per CSV; one ID and one numeric measure are compared at a time. Contributions describe arithmetic rather than proven business causes.

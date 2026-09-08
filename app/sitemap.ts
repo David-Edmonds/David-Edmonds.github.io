@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/work/federal-contracting-performance`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/services`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/tools/what-changed`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/tools`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];

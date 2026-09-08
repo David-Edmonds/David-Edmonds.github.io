@@ -23,7 +23,7 @@ export default function Home() {
 
     <section className="home-proof section shell"><div><span>EXPERIENCE</span><strong>10+ years</strong><small>Analytics, reporting, and decision support</small></div><div><span>TOOLS</span><strong>Power BI · Tableau · SQL</strong><small>Plus Excel, Python, PostgreSQL, and SharePoint</small></div><div><span>EDUCATION</span><strong>B.S. Analytics</strong><small>Purdue Global · 2024</small></div></section>
 
-    <section className="calculator-teaser"><div className="shell"><div><span>ANALYTICS LAB</span><h2>Estimate reporting effort and check a CSV before it becomes a dashboard.</h2><p>Use two browser-based tools for a practical first pass—without uploading the file.</p></div><a className="button blue" href="/tools">Open the analytics lab <span>→</span></a></div></section>
+    <section className="calculator-teaser"><div className="shell"><div><span>ANALYTICS LAB</span><h2>Estimate reporting effort and check a CSV before it becomes a dashboard.</h2><p>Estimate reporting effort, check CSV quality, and compare two reports—all in your browser.</p></div><a className="button blue" href="/tools">Open the analytics lab <span>→</span></a></div></section>
 
     <section className="contact compact-contact"><div className="shell contact-grid"><div><span>LET’S WORK TOGETHER</span><h2>Have a reporting challenge worth <em>solving?</em></h2></div><div><p>Tell me what is slow, unclear, or unreliable. I’ll help you identify the most practical next step.</p><a className="button dark" href="/contact">Start a conversation <span>↗</span></a></div></div></section>
   </main>;
