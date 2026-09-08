@@ -17,3 +17,14 @@ void test('CSV export neutralizes formulas and escapes quotes',()=>{assert.equal
 void test('50,000 records remain reconcilable',()=>{const s='id,n\n'+Array.from({length:50000},(_,i)=>`${i},${i%7}`).join('\n');const r=compare(parseCSV(s),parseCSV(s),'id','n');assert.equal(r.entries.length,50000);assert.equal(r.delta,0);});
 
 void test('empty multi-column records are rejected as blank IDs',()=>{const r=parseCSV('id,n\na,1\n,');assert.equal(r.rows.length,2);assert.throws(()=>compare(r,r,'id','n'),/blank ID/);});
+
+void test('worked example reconciles all four groups and preserves source references',()=>{
+ const r=compare(a,b,'Account ID','Revenue');
+ const sums=Object.fromEntries(['Changed','Added','Missing','Duplicate ID'].map(status=>[status,r.entries.filter(e=>e.status===status).reduce((sum,e)=>sum+e.delta,0)]));
+ assert.deepEqual(sums,{'Changed':11000,'Added':16000,'Missing':-5000,'Duplicate ID':7000});
+ assert.equal(Object.values(sums).reduce((sum,v)=>sum+v,0),r.delta);
+ const duplicate=r.entries.find(e=>e.id==='ACC-007');
+ assert.deepEqual(duplicate.oldRows,[7]);assert.deepEqual(duplicate.newRows,[7,8]);
+ assert.deepEqual(r.entries.find(e=>e.id==='ACC-008').newRows,[]);
+ assert.deepEqual(r.entries.find(e=>e.id==='ACC-009').oldRows,[]);
+});
