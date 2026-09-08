@@ -113,3 +113,4 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 @media(max-width:620px){.inquiry{padding-top:52px;padding-bottom:62px;gap:24px}.inquiry h2{font-size:36px}.inquiry-card{padding:22px}.project-contact{margin-top:36px;margin-bottom:52px;padding:24px}.project-contact h2{font-size:30px}.project-contact .button{min-height:48px}.project-contact-actions{gap:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:620px){.home-proof{margin-left:14px;margin-right:14px}}
+.contact-page .contact-options{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-options .underlink{overflow-wrap:anywhere}@media(max-width:760px){.contact-page .contact-options{grid-template-columns:1fr}}

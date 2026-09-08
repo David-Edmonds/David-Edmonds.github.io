@@ -153,7 +153,7 @@ test("consulting offers and project inquiries retain a clear contact path", asyn
   assert.match(contact, /id="inquiry-topic"/);
   assert.match(contact, /id="inquiry-goal"/);
   assert.match(contact, /Nothing is sent until you send it there/);
-  assert.match(contact, /mailto:davidedmondsc@gmail.com\?subject=/);
+  assert.match(contact, /mailto:boldproofanalytics@gmail.com\?subject=/);
   const services = await readFile(join(docs, "services/index.html"), "utf8");
   assert.equal((services.match(/>Discuss this service/g) || []).length, 3);
 });

@@ -2,7 +2,7 @@
 
 const links = [
   ["Work", "/work"],
-  ["Services", "/services"],
+  ["Consulting", "/services"],
   ["About", "/about"],
   ["Tools", "/tools"],
   ["Resume", "/david-edmonds-resume.pdf"],
@@ -62,7 +62,7 @@ export function SiteFooter() {
       </p>
       <div>
         <a href="/work">Work</a>
-        <a href="/services">Services</a>
+        <a href="/services">Consulting</a>
         <a href="/contact">Contact</a>
         <a href="#top">Top ↑</a>
       </div>

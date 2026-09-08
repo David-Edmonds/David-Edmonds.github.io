@@ -105,3 +105,17 @@ test("report analyzer renders sample results, metadata and privacy controls", as
   const tools = await (await render('/tools')).text();
   assert.match(tools, /href="\/tools\/what-changed"/);
 });
+
+
+test("separates consulting inquiries from career and portfolio contact", async () => {
+  const home = await (await render("/")).text();
+  const contact = await (await render("/contact")).text();
+  const services = await (await render("/services")).text();
+  assert.match(home, /PORTFOLIO · OPEN TO REMOTE ANALYTICS ROLES/);
+  assert.match(home, /https:\/\/bold-proof-analytics\.pages\.dev\//);
+  assert.match(home, /Confia Solutions, LLC/);
+  assert.match(contact, /mailto:davidedmondsc@gmail\.com\?subject=Career/);
+  assert.match(contact, /mailto:boldproofanalytics@gmail\.com\?subject=Consulting/);
+  assert.match(services, /Bold Proof Analytics is my consulting business/);
+  assert.match(services, /independent case studies/);
+});
