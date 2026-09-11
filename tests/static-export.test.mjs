@@ -8,20 +8,21 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = join(root, "docs");
 const resumeSize = 8_565;
-test("app portfolio publishes accurate project scope without private app access", async () => {
+test("app portfolio publishes scoped website links without credentials or local access", async () => {
   const html = await readFile(join(docs, "apps/index.html"), "utf8");
   for (const name of ["SavorShelf", "Fourth &amp; Forever", "Quick Apply"]) assert.ok(html.includes(name));
   assert.match(html, /not a language model/);
-  assert.match(html, /Private prototype/);
+  assert.match(html, /Private web app/);
   assert.match(html, /Private working app/);
-  assert.match(html, /This portfolio website/);
+  assert.doesNotMatch(html, /This portfolio website/);
   assert.match(html, /id="ai-approach"/);
-  assert.equal((html.match(/class="ai-detail"/g) || []).length, 4);
+  assert.equal((html.match(/class="ai-detail"/g) || []).length, 3);
   assert.match(html, /not claims of original model research/);
   assert.match(html, /not a feature claimed as implemented/);
-  assert.match(html, /https:\/\/github.com\/David-Edmonds\/David-Edmonds.github.io/);
+  assert.match(html, /https:\/\/david-edmonds.github.io\/savorshelf-cookbook\//);
+  assert.match(html, /Open football app .* sign-in required/);
   assert.match(html, /aria-current="page"/);
-  assert.doesNotMatch(html, /href="[^"]*(?:localhost|127\.0\.0\.1|\.apk|workers\.dev|sites\.chatgpt)[^"]*"/);
+  assert.doesNotMatch(html, /href="[^"]*(?:localhost|127\.0\.0\.1|\.apk|sites\.chatgpt)[^"]*"/);
   assert.match(await readFile(join(docs, "work/index.html"), "utf8"), /href="\/apps"/);
   assert.match(await readFile(join(docs, "sitemap.xml"), "utf8"), /https:\/\/david-edmonds\.github\.io\/apps/);
 });
