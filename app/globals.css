@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+/* A featured case study followed by a compact, evidence-led gallery. */
+.portfolio-page .portfolio-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.portfolio-page .portfolio-gallery .feature{margin:0;min-width:0;border:1px solid #d8dfe5;box-shadow:none;background:#fffdf9}
+.portfolio-page .portfolio-gallery .featured-project{grid-column:1/-1}
+.portfolio-page .portfolio-gallery .gallery-project{display:flex;flex-direction:column}
+.portfolio-page .gallery-project .feature-visual{height:250px;min-height:250px;max-height:250px;display:flex;flex-direction:column;justify-content:center;gap:0}
+.portfolio-page .gallery-project .feature-visual img{max-height:202px;object-fit:contain;box-shadow:none}
+.portfolio-page .gallery-project .feature-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start}
+.portfolio-page .gallery-project .feature-copy h2{font-size:30px}
+.portfolio-page .gallery-project .project-actions{margin-top:auto;width:100%}
+.portfolio-page .project-takeaway{border-top:1px solid #d8dfe5;padding-top:18px;margin:0 0 24px;width:100%}
+.portfolio-page .project-takeaway strong{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.055em;color:#2154a3}
+.portfolio-page .project-takeaway p{font:16px/1.6 Arial,sans-serif;color:#233650;margin:8px 0 0}
+.portfolio-page .gallery-project .sql-preview pre{font-size:13px;flex-shrink:0;margin:14px 0;line-height:1.55}
+.portfolio-page .gallery-project .sql-preview p{font-size:14px;line-height:1.5;margin:0}
+.portfolio-page .gallery-project .planner-work-preview strong{font-size:32px;margin:10px 0;line-height:1.3}
+.portfolio-page .gallery-project .planner-work-preview>span{font-size:11px;line-height:1.5}
+.portfolio-page .gallery-project .planner-work-preview p{font-size:14px;line-height:1.5;margin:0}
+@media(max-width:760px){.portfolio-page .portfolio-gallery{grid-template-columns:1fr;gap:24px}.portfolio-page .portfolio-gallery .featured-project{grid-column:auto}.portfolio-page .gallery-project .feature-visual{height:220px;min-height:220px;max-height:220px}.portfolio-page .gallery-project .feature-visual img{max-height:180px}.portfolio-page .gallery-project .feature-copy h2{font-size:29px}.portfolio-page .gallery-project .sql-preview pre{font-size:12px}}
+
 /* Portfolio reading path: question, contribution, then supporting work. */
 .portfolio-page .portfolio-intro{padding:62px 0 32px}
 .portfolio-page .portfolio-intro h1{font-size:clamp(42px,5.6vw,70px);line-height:1.04;margin:22px 0}
