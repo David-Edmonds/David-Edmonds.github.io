@@ -24,6 +24,7 @@ const takeaways: Record<string, { label: string; text: string }> = {
 export default function WorkPage() {
   return <main id="top" className="portfolio-page">
     <section className="page-intro shell portfolio-intro"><span>SELECTED WORK</span><h1>How I approach<br/><em>an analysis.</em></h1><p>Each project starts with a business question and shows the analysis behind the answer. Explore the dashboard, review the methods, or download the supporting work.</p><nav className="project-jump" aria-label="Find a project">{projects.map(project => <a key={project.id} href={`#${project.id}`}>{project.label}</a>)}<a href="#experience">Professional experience</a></nav></section>
+    <nav className="shell work-switch" aria-label="Browse my work"><a href="/work" aria-current="page">Analytics</a><a href="/apps">AI &amp; Apps</a></nav>
     <section className="section shell work-page" aria-label="Portfolio projects">
       <div className="portfolio-gallery">
       {projects.map(project => <article className={`feature ${project.id === "sales" ? "featured-project" : "gallery-project"}`} id={project.id} key={project.id}>

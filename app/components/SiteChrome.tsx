@@ -2,6 +2,7 @@
 
 const links = [
   ["Work", "/work"],
+  ["AI & Apps", "/apps"],
   ["Consulting", "/services"],
   ["About", "/about"],
   ["Tools", "/tools"],

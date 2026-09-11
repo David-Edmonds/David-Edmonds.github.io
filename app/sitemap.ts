@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://david-edmonds.github.io";
   return [
+    { url: `${base}/apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/work/profit-scenario-planner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/work/executive-brief`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/tools/profit-planner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
