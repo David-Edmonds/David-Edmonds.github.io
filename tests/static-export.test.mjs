@@ -8,6 +8,17 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = join(root, "docs");
 const resumeSize = 8_565;
+test("app portfolio publishes accurate project scope without private app access", async () => {
+  const html = await readFile(join(docs, "apps/index.html"), "utf8");
+  for (const name of ["SavorShelf", "Fourth &amp; Forever", "Quick Apply"]) assert.ok(html.includes(name));
+  assert.match(html, /not a language model/);
+  assert.match(html, /Private prototype/);
+  assert.match(html, /Private working app/);
+  assert.match(html, /aria-current="page"/);
+  assert.doesNotMatch(html, /href="[^"]*(?:localhost|127\.0\.0\.1|\.apk|workers\.dev|sites\.chatgpt)[^"]*"/);
+  assert.match(await readFile(join(docs, "work/index.html"), "utf8"), /href="\/apps"/);
+  assert.match(await readFile(join(docs, "sitemap.xml"), "utf8"), /https:\/\/david-edmonds\.github\.io\/apps/);
+});
 const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
 
 test('sales projects connect through a scoped planner case study', async () => {

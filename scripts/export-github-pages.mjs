@@ -15,6 +15,7 @@ const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d
 const htmlRoutes = [
   "/",
   "/about",
+  "/apps",
   "/contact",
   "/services",
   "/tools",
