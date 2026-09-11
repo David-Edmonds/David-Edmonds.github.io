@@ -14,6 +14,12 @@ test("app portfolio publishes accurate project scope without private app access"
   assert.match(html, /not a language model/);
   assert.match(html, /Private prototype/);
   assert.match(html, /Private working app/);
+  assert.match(html, /This portfolio website/);
+  assert.match(html, /id="ai-approach"/);
+  assert.equal((html.match(/class="ai-detail"/g) || []).length, 4);
+  assert.match(html, /not claims of original model research/);
+  assert.match(html, /not a feature claimed as implemented/);
+  assert.match(html, /https:\/\/github.com\/David-Edmonds\/David-Edmonds.github.io/);
   assert.match(html, /aria-current="page"/);
   assert.doesNotMatch(html, /href="[^"]*(?:localhost|127\.0\.0\.1|\.apk|workers\.dev|sites\.chatgpt)[^"]*"/);
   assert.match(await readFile(join(docs, "work/index.html"), "utf8"), /href="\/apps"/);
