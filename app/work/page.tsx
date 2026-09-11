@@ -13,15 +13,24 @@ const projects = [
   { id: "planner", label: "Scenario planning", title: "Profit Scenario Planner", type: "INTERACTIVE · INDEPENDENT PORTFOLIO EXAMPLE", question: "Would a higher price offset lower sales volume?", work: "I built a browser-based model to compare price, volume, discount and cost assumptions. It explains the change in operating profit and calculates the sales volume needed to break even.", href: "/work/profit-scenario-planner", action: "View scenario analysis", note: "Separate fictional monthly example · inputs stay in your browser." },
 ];
 
+const takeaways: Record<string, { label: string; text: string }> = {
+  sales: { label: "KEY FINDING · FICTIONAL 2025 RESULTS", text: "Revenue grew 12.7%, but gross profit grew 7.9%. A 1.4 percentage-point margin decline explains the gap." },
+  sql: { label: "KEY FINDING · FICTIONAL DATA", text: "More orders explain $783K of the $927K revenue increase. Higher revenue per order accounts for the remaining $144K." },
+  federal: { label: "ANALYTICAL CONSIDERATION", text: "Participation and goal attainment answer different questions. Their denominators must be understood before comparing the measures." },
+  ev: { label: "ANALYTICAL CONSIDERATION", text: "A county with more registered EVs does not necessarily have a higher adoption rate. Population context matters." },
+  planner: { label: "SCENARIO RESULT · FICTIONAL DATA", text: "In the sample, a 5% price increase offsets a 5% volume decline. Monthly operating profit rises by $2,512.50 with other assumptions held constant." },
+};
+
 export default function WorkPage() {
   return <main id="top" className="portfolio-page">
     <section className="page-intro shell portfolio-intro"><span>SELECTED WORK</span><h1>How I approach<br/><em>an analysis.</em></h1><p>Each project starts with a business question and shows the analysis behind the answer. Explore the dashboard, review the methods, or download the supporting work.</p><nav className="project-jump" aria-label="Find a project">{projects.map(project => <a key={project.id} href={`#${project.id}`}>{project.label}</a>)}<a href="#experience">Professional experience</a></nav></section>
     <section className="section shell work-page" aria-label="Portfolio projects">
-      {projects.map(project => <article className="feature" id={project.id} key={project.id}>
+      <div className="portfolio-gallery">
+      {projects.map(project => <article className={`feature ${project.id === "sales" ? "featured-project" : "gallery-project"}`} id={project.id} key={project.id}>
         <div className={`feature-visual ${project.id === "sql" ? "sql-preview" : project.id === "planner" ? "planner-work-preview" : ""}`}>
           {project.image ? <a className="project-preview-link" href={project.href} aria-label={`View ${project.title}`}><img src={project.image} alt={project.alt} loading="lazy"/></a> : project.id === "sql" ? <><span>SQL · FIVE INVESTIGATIONS</span><pre><code>{"SELECT year, revenue, profit,\n       profit / NULLIF(revenue, 0) AS margin\nFROM annual\nORDER BY year;"}</code></pre><p>576 fictional records<br/>Source data → queries → checked results</p></> : <><span>MONTHLY OPERATING PROFIT · FICTIONAL EXAMPLE</span><strong>$15,000 <span>→</span> $17,512.50</strong><p>Price +5% · volume −5%<br/>Discount and costs unchanged</p></>}
         </div>
-        <div className="feature-copy"><span className="pill">{project.type}</span><h2>{project.title}</h2><p className="lead">{project.question}</p><p className="project-method">{project.work}</p><div className="project-actions"><a className="button blue" href={project.href}>{project.action}<span aria-hidden="true">→</span></a>
+        <div className="feature-copy"><span className="pill">{project.id === "sales" ? "FEATURED ANALYSIS · EXCEL · FICTIONAL DATA" : project.type}</span><h2>{project.title}</h2><p className="lead">{project.question}</p><p className="project-method">{project.work}</p><aside className="project-takeaway" aria-label={`${project.title} takeaway`}><strong>{takeaways[project.id].label}</strong><p>{takeaways[project.id].text}</p></aside><div className="project-actions"><a className="button blue" href={project.href}>{project.action}<span aria-hidden="true">→</span></a>
           {project.id === "sales" && <a className="secondary-action" href="/work/executive-brief">Read the executive brief</a>}
           {project.download && <a className="secondary-action" href={project.download} download>Download project ↓</a>}
           {project.id === "ev" && <><a className="secondary-action" href="https://public.tableau.com/app/profile/david.edmonds5066/viz/WashingtonEVMarketOverview/Dashboard1#1" target="_blank" rel="noreferrer">Open in Tableau ↗</a><a className="secondary-action" href="https://github.com/David-Edmonds/washington-ev-analytics" target="_blank" rel="noreferrer">Project files ↗</a></>}
@@ -29,6 +38,7 @@ export default function WorkPage() {
           {project.id === "planner" && <a className="secondary-action" href="/tools/profit-planner">Try the planner</a>}
           <span className="safe-project-note">{project.note}</span></div></div>
       </article>)}
+      </div>
       <section className="portfolio-experience" id="experience" aria-labelledby="experience-title"><h2 id="experience-title">Professional experience</h2><p>These summaries describe my work in operational and defense analytics. The public projects above are independent examples.</p>
         <div className="case-study-grid"><article><div className="case-index"><b>CURRENT ROLE · CONFIA SOLUTIONS, LLC</b></div><div className="case-badge blue-badge">POWER BI + EXCEL</div><h3>Recruiting &amp; Operational Analytics</h3><p>I prepare biweekly analysis and leadership reporting on headcount, recruiting pipeline stages, time-to-fill, conversion rates, placements and revenue pipeline metrics.</p><dl><div><dt>Focus</dt><dd>Hiring performance and workforce trends</dd></div><div><dt>Contribution</dt><dd>Dashboard design, KPI tracking, source consolidation and validation</dd></div></dl></article><article><div className="case-index"><b>SANITIZED EXPERIENCE</b></div><div className="case-badge coral-badge">DEFENSE ANALYTICS</div><h3>Reporting &amp; Analysis</h3><p>As the sole data analyst on a 12-person team, I produced executive dashboards, analytical models, reports and process maps across more than 20 projects.</p><div className="case-stats"><div><strong>50+</strong><span>visualization products</span></div><div><strong>20+</strong><span>projects supported</span></div></div></article></div>
       </section>
