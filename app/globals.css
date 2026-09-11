@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* A featured case study followed by a compact, evidence-led gallery. */
-.portfolio-page .portfolio-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
-.portfolio-page .portfolio-gallery .feature{margin:0;min-width:0;border:1px solid #d8dfe5;box-shadow:none;background:#fffdf9}
+.portfolio-page .portfolio-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.portfolio-page .portfolio-gallery .feature{margin:0;min-width:0;border:1px solid #dce2e8;border-radius:20px;box-shadow:0 6px 24px #17263806;background:#fffefb}
 .portfolio-page .portfolio-gallery .featured-project{grid-column:1/-1}
 .portfolio-page .portfolio-gallery .gallery-project{display:flex;flex-direction:column}
 .portfolio-page .gallery-project .feature-visual{height:250px;min-height:250px;max-height:250px;display:flex;flex-direction:column;justify-content:center;gap:0}
@@ -10,7 +10,7 @@
 .portfolio-page .gallery-project .feature-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start}
 .portfolio-page .gallery-project .feature-copy h2{font-size:30px}
 .portfolio-page .gallery-project .project-actions{margin-top:auto;width:100%}
-.portfolio-page .project-takeaway{border-top:1px solid #d8dfe5;padding-top:18px;margin:0 0 24px;width:100%}
+.portfolio-page .project-takeaway{border:0;border-left:2px solid #adc3df;border-radius:0 10px 10px 0;background:#f3f6fa;padding:16px 18px;margin:0 0 28px;width:100%}
 .portfolio-page .project-takeaway strong{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.055em;color:#2154a3}
 .portfolio-page .project-takeaway p{font:16px/1.6 Arial,sans-serif;color:#233650;margin:8px 0 0}
 .portfolio-page .gallery-project .sql-preview pre{font-size:13px;flex-shrink:0;margin:14px 0;line-height:1.55}
@@ -24,24 +24,32 @@
 .portfolio-page .portfolio-intro{padding:62px 0 32px}
 .portfolio-page .portfolio-intro h1{font-size:clamp(42px,5.6vw,70px);line-height:1.04;margin:22px 0}
 .portfolio-page .portfolio-intro>p{max-width:750px;font:18px/1.65 Arial,sans-serif}
-.project-jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.project-jump a{padding:12px 16px;border:1px solid #bdcbd9;border-radius:8px;background:#fff;font-size:14px;font-weight:700;min-height:44px}
-.project-jump a:hover{border-color:#2864dc;color:#214fba;background:#f0f5fd}
+.project-jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.project-jump a{padding:12px 18px;border:1px solid #d4dde6;border-radius:24px;background:#fffefa;font-size:14px;font-weight:600;min-height:44px;transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease}
+.project-jump a:hover{border-color:#9db6d7;color:#214fba;background:#edf3fb}
 .project-jump a:focus-visible,.project-preview-link:focus-visible{outline:3px solid #2864dc;outline-offset:4px}
 .portfolio-page .work-page{padding-top:12px;padding-bottom:52px}
 .portfolio-page .feature{grid-template-columns:minmax(0,1fr) minmax(0,1fr);scroll-margin-top:110px;border-radius:12px;overflow:hidden}
 .portfolio-page .feature+.feature{margin-top:28px}
-.portfolio-page .feature-copy{padding:32px}
+.portfolio-page .feature-copy{padding:36px}
 .portfolio-page .feature-copy h2{font:400 34px/1.14 Georgia,serif;letter-spacing:-.025em;margin:20px 0 16px}
 .portfolio-page .feature-copy .lead{font:700 18px/1.5 Arial,sans-serif;color:#233650;margin:0 0 14px}
 .portfolio-page .project-method{font-size:16px;line-height:1.65;color:#46576a;margin:0 0 24px}
-.portfolio-page .feature-visual{padding:24px;min-width:0}
+.portfolio-page .feature-visual{padding:28px;min-width:0}
+.portfolio-page .feature-visual:not(.sql-preview):not(.planner-work-preview){background:linear-gradient(135deg,#edf3f8,#e4edf5);border-color:#dde5ed}
 .project-preview-link{display:block;width:100%;border-radius:6px}
 .portfolio-page .feature-visual img{width:100%;height:auto;box-shadow:0 8px 22px #14203318}
 .portfolio-page .project-actions{gap:16px}
-.portfolio-page .secondary-action{font-size:14px;line-height:1.5;min-height:36px;display:inline-flex;align-items:center}
+.portfolio-page .secondary-action{font-size:14px;line-height:1.5;min-height:44px;display:inline-flex;align-items:center;border-bottom:0;text-decoration:underline;text-decoration-color:#b3c0cf;text-underline-offset:6px;text-decoration-thickness:1px;transition:color 160ms ease,text-decoration-color 160ms ease}
+.portfolio-page .secondary-action:hover{color:#214fba;text-decoration-color:#214fba}
+.portfolio-page .project-actions .button{font-size:14px;font-weight:700;text-transform:none;letter-spacing:0;border-radius:10px;gap:20px;min-height:48px;padding:12px 18px;line-height:1.4;transition:background-color 160ms ease,box-shadow 160ms ease}
+.portfolio-page .project-actions .button:hover{background:#234faa;box-shadow:0 4px 12px #234faa20}
+.portfolio-page .project-preview-link{overflow:hidden;border-radius:10px}
+.portfolio-page .project-preview-link img{transition:transform 220ms ease}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.portfolio-page .project-preview-link:hover img{transform:scale(1.015)}}
+@media(prefers-reduced-motion:reduce){.portfolio-page .project-preview-link img,.portfolio-page .project-actions .button,.portfolio-page .secondary-action,.project-jump a{transition:none}}
 .portfolio-page .safe-project-note{font-size:13px;line-height:1.6}
-.portfolio-page .pill{font-size:12px;line-height:1.5;letter-spacing:.04em}
+.portfolio-page .pill{font-size:12px;line-height:1.6;letter-spacing:.035em;background:transparent;color:#365c8d;padding:0;font-weight:700}
 .portfolio-page .sql-preview pre{font-size:clamp(11px,1.05vw,15px);max-width:100%;overflow:auto}
 .portfolio-experience{scroll-margin-top:110px;margin-top:64px}
 .portfolio-experience>h2{font:400 36px/1.2 Georgia,serif;margin:0 0 16px}
