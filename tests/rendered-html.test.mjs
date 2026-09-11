@@ -30,7 +30,7 @@ test("server-renders a concise multi-page professional homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>David Edmonds \| Data Analytics &amp; BI Consultant<\/title>/i);
-  assert.match(html, /Complex data\./);
+  assert.match(html, /Understand performance\./);
   assert.match(html, /Washington EV Market Overview/);
   assert.match(html, /Federal Contracting Performance/);
   assert.match(html, /src="\/federal-contracting-dashboard\.jpg"/);
