@@ -1,12 +1,23 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Full-page anchors support the static GitHub Pages export. */
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "AI & Apps | David Edmonds",
-  description: "Independent app projects by David Edmonds: recipe management, fantasy football decision support and a private job-search workspace.",
+  description: "David Edmonds's apps and portfolio website, with detailed explanations of AI integration, validation, privacy and development decisions.",
   alternates: { canonical: "/apps" },
 };
 
 const apps = [
+  {
+    id: "portfolio-website", name: "This portfolio website", category: "WEB DESIGN & ANALYTICS TOOLS", status: "Live",
+    question: "Make the work easy to understand—and the evidence easy to inspect.",
+    description: "A public home for my analytics case studies, downloadable projects and interactive tools. Visitors can explore a business question, inspect the methods and try an analysis with sample data or their own CSV files.",
+    contribution: "I’m developing the responsive interface, case-study structure, report comparison tool and profit scenario planner, using AI-assisted development with source review and automated checks.",
+    decision: "The calculations run in code. Report comparison stays in the visitor’s browser, and the site distinguishes fictional examples, public datasets and professional experience.",
+    scope: "Live on GitHub Pages. The website does not run a language model or send report uploads to one. Changes go through a pull request, build and export checks, then live verification.",
+    steps: ["Explore the question", "Inspect the evidence", "Try the analysis"],
+    tech: "React · TypeScript · Vinext · GitHub Pages", topic: "the portfolio website",
+  },
   {
     id: "savorshelf", name: "SavorShelf", category: "RECIPES & PERSONAL KNOWLEDGE", status: "In development",
     question: "Keep the recipe. Remember what made it better.",
@@ -46,6 +57,7 @@ export default function AppsPage() {
       <h1>AI &amp; apps.<br/><em>Built around real tasks.</em></h1>
       <p>Alongside my analytics work, I’m building apps that turn information into a useful next step. These projects show how I approach product design, data handling and the parts of a workflow that need human judgment.</p>
       <nav className="work-switch" aria-label="Browse my work"><a href="/work">Analytics</a><a href="/apps" aria-current="page">AI &amp; Apps</a></nav>
+      <nav className="apps-section-links" aria-label="Explore app projects"><a href="#portfolio-website">Website</a><a href="#savorshelf">SavorShelf</a><a href="#fourth-and-forever">Fourth &amp; Forever</a><a href="#quick-apply">Quick Apply</a><a href="#ai-approach">How the AI works ↓</a></nav>
     </section>
     <section className="shell app-collection" aria-label="App projects">
       {apps.map(app => <article className={`app-project app-${app.id}`} key={app.id} id={app.id}>
@@ -53,8 +65,36 @@ export default function AppsPage() {
         <div className="app-project-body"><div><h3>{app.question}</h3><p>{app.description}</p><dl><dt>What I’m building</dt><dd>{app.contribution}</dd><dt>Design decision</dt><dd>{app.decision}</dd></dl></div>
           <aside className="app-workflow" aria-label={`${app.name} workflow`}><span>THE WORKFLOW</span><ol>{app.steps.map(step => <li key={step}>{step}</li>)}</ol><p>{app.tech}</p></aside>
         </div>
+        {app.id === "portfolio-website" && <div className="website-project-links"><a href="/">Visit the website ↗</a><a href="/tools/what-changed">Try report comparison →</a><a href="https://github.com/David-Edmonds/David-Edmonds.github.io">View source on GitHub ↗</a></div>}
         <div className="app-project-footer"><p>{app.scope}</p><a href={`mailto:davidedmondsc@gmail.com?subject=${encodeURIComponent(`Portfolio project: ${app.topic}`)}`}>Discuss {app.topic}<span aria-hidden="true"> ↗</span></a></div>
       </article>)}
+    </section>
+    <section className="shell ai-approach" id="ai-approach" aria-labelledby="ai-approach-title">
+      <span className="apps-eyebrow">IMPLEMENTATION NOTES</span><h2 id="ai-approach-title">Where AI fits—and how I check its work.</h2>
+      <p className="ai-intro">These projects use AI in different ways: to help develop software, draft recipe variations, or interpret a question. I define the model’s job narrowly, then use application logic and review to decide what happens next. Using an existing model is different from training one; these are integration projects, not claims of original model research.</p>
+      <details className="ai-detail"><summary>SavorShelf: structured recipe generation and revision<span>Inputs, validation and saved versions</span></summary><div>
+        <h3>What the model receives</h3><p>The creator companion sends the user’s dish request and visible preferences. A revision includes the latest complete draft and the requested change. The workflow does not send the entire saved collection or an unlimited chat history.</p>
+        <h3>What it produces</h3><p>The requested output is a structured recipe: ingredients, quantities, servings, steps and notes. This gives the app fields it can parse and validate instead of treating a free-form answer as a finished recipe. The current provider adapter uses Puter; keeping that adapter separate allows the provider to change without moving ownership of recipe state.</p>
+        <h3>How the app handles the result</h3><p>The companion parses the response, validates the recipe structure and presents a draft. The user reviews it, names the version and imports it deliberately. Recipe identity and version handling protect the original card; repeated imports of the same formulation should not create duplicate recipes.</p>
+        <h3>Failures and limits</h3><p>An invalid response or failed request retains the last valid draft. There is no automatic retry; stopping locally ignores late results but does not guarantee a provider request has stopped. Structural validation cannot prove that a dish tastes good, a substitution behaves correctly or dietary advice is appropriate. New recipes remain untested drafts until reviewed and tried. Live creator use and recipe enrichment are still development work.</p>
+      </div></details>
+      <details className="ai-detail"><summary>Fourth &amp; Forever: language understanding backed by calculations<span>Constrained output and source-aware decisions</span></summary><div>
+        <h3>The model’s job</h3><p>A local language-model integration interprets a football question and returns an intent, such as lineup, waiver, trade or scoring, plus referenced players. It receives a bounded roster context and the two most recent questions for follow-up references. It is instructed to interpret the request, not generate advice or execute tools.</p>
+        <h3>Grounding the answer</h3><p>The response must match a defined JSON structure. Allowed intents are enumerated, player references must exist in the supplied roster, and duplicate or unknown references are rejected. Application code then resolves the request against the available data. Lineup and roster comparisons are calculated separately from the language model.</p>
+        <h3>Why data freshness matters</h3><p>A successful roster refresh does not make a captured projection current. The app preserves the distinction between connected rosters, reviewed imports and missing evidence. A recommendation needs compatible scoring, eligible lineup slots and the relevant player information; fluent model output cannot supply a missing injury report or lineup-lock status.</p>
+        <h3>Failure handling and limits</h3><p>The local request has a timeout and response-size limit. Invalid structure or invented player references fail validation. The integration treats supplied text as untrusted input, but prompting alone is not a security guarantee—the constrained output and code checks matter. The app remains read-only, with no automated league transactions. Broader current-data coverage and the Android update are unfinished.</p>
+      </div></details>
+      <details className="ai-detail"><summary>Quick Apply: choosing rules where they are easier to inspect<span>Profile-based drafts without a language model</span></summary><div>
+        <h3>What runs today</h3><p>Quick Apply uses explicit screening rules, duplicate checks and editable templates. Restriction flags point back to evidence in the posting, and drafts draw from recorded profile facts. This is workflow automation, not a model making an eligibility decision.</p>
+        <h3>The analytical decision</h3><p>Rules are useful when the question is specific: whether a posting mentions office attendance, whether a requisition is already saved, or which resume was used for a submitted application. Missing requirements remain review items. An application is only recorded as submitted when the user confirms that action.</p>
+        <h3>What an AI extension would need</h3><p>A future model-assisted drafting feature would need a bounded set of approved profile facts, traceable support for each claim and a review step before use. It would also need evaluation against unsupported credentials, ambiguous restrictions and instructions embedded in job descriptions. That is a design requirement, not a feature claimed as implemented.</p>
+      </div></details>
+      <details className="ai-detail"><summary>This website: AI-assisted development, deterministic tools<span>From a change request to a checked release</span></summary><div>
+        <h3>How AI contributes</h3><p>I use AI-assisted development to turn requirements into draft code, explore layouts, refine copy and identify checks to run. The implementation still has to fit the existing project and support the claims shown on the page. A generated answer or a passing build is not enough evidence of a working user experience.</p>
+        <h3>What visitors actually use</h3><p>The report analyzer parses and compares CSV records in the browser. The profit planner calculates results from explicit assumptions. Neither feature asks a language model to invent totals or explain an unseen dataset. The public website is a static export of a React and TypeScript application built with Vinext and hosted on GitHub Pages.</p>
+        <h3>How changes are checked</h3><p>The release process includes source review, linting, application and export tests, link checks and responsive browser review. Meaningful failures become checks that can be rerun. GitHub generates the published output; I then inspect the deployed page rather than assuming the local preview proves the release succeeded.</p>
+        <h3>What those checks do not prove</h3><p>Automated checks can verify known calculations and regressions, but they do not prove that every visitor understands the page. Usability feedback and real-world testing remain separate evidence. The same distinction applies across these apps: code checks, model-output quality and real-user outcomes are different things to evaluate.</p>
+      </div></details>
     </section>
     <section className="shell apps-next"><div><h2>Try the public tools</h2><p>Compare two reports or explore a profit scenario directly in your browser.</p></div><a className="button blue" href="/tools">Open the analytics lab <span aria-hidden="true">→</span></a></section>
   </main>;
