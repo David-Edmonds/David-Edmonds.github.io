@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import ts from 'typescript';
 const source = await readFile(new URL('../app/tools/what-changed/compare.ts', import.meta.url), 'utf8');
 const compiled = ts.transpileModule(source, {compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText;
-const { parseCSV, compare, numeric, sampleBefore, sampleAfter, sampleQualityAfter, csvCell, profileReport, assessQuality } = await import('data:text/javascript;base64,' + Buffer.from(compiled).toString('base64'));
+const { parseCSV, compare, numeric, sampleBefore, sampleAfter, sampleQualityAfter, csvCell, qualityCSV, profileReport, assessQuality } = await import('data:text/javascript;base64,' + Buffer.from(compiled).toString('base64'));
 const a = parseCSV(sampleBefore), b = parseCSV(sampleAfter);
 void test('quality sample exposes every blocker while comparison stays blocked', () => {
  const dirty = parseCSV(sampleQualityAfter);
@@ -64,4 +64,29 @@ void test('worked example reconciles all four groups and preserves source refere
  assert.deepEqual(duplicate.oldRows,[7]);assert.deepEqual(duplicate.newRows,[7,8]);
  assert.deepEqual(r.entries.find(e=>e.id==='ACC-008').newRows,[]);
  assert.deepEqual(r.entries.find(e=>e.id==='ACC-009').oldRows,[]);
+});
+
+void test('quality export includes every blocked record beyond the screen preview', () => {
+ const dirty=parseCSV('id,n\n'+Array.from({length:12},()=>',missing').join('\n'),'after.csv');
+ const exported=parseCSV(qualityCSV(a,dirty,'id','n'));
+ assert.equal(exported.rows.filter(row=>row[3]==='Blank ID').length,12);
+ assert.equal(exported.rows.filter(row=>row[3]==='Invalid or blank measure').length,12);
+ assert.equal(exported.rows.filter(row=>row[3]==='Exact duplicate extra row').length,11);
+ assert.ok(exported.rows.some(row=>row[2]==='12' && row[3]==='Blank ID'));
+ assert.ok(exported.rows.some(row=>row[3]==='Missing ID column'));
+});
+void test('quality export escapes source formulas and preserves quoted multiline values', () => {
+ const report=parseCSV('id,n\n=BAD(),"hello,\nworld"','@private.csv');
+ const exported=parseCSV(qualityCSV(report,report,'id','n'));
+ assert.equal(exported.rows[0][1],"'@private.csv");
+ assert.equal(exported.rows[0][5],'hello,\nworld');
+ const dup=parseCSV('id,n\n=BAD(),1\n=BAD(),1');
+ assert.ok(parseCSV(qualityCSV(dup,dup,'id','n')).rows.some(row=>row[5] === "'=BAD()"));
+});
+void test('clean quality export states the limits instead of implying business accuracy', () => {
+ const report=parseCSV('id,n\na,0');
+ const exported=parseCSV(qualityCSV(report,report,'id','n'));
+ assert.equal(exported.rows.length,1);
+ assert.equal(exported.rows[0][3],'No issues found in these checks');
+ assert.match(exported.rows[0][6],/Business accuracy/);
 });

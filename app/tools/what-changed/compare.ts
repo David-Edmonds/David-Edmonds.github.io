@@ -57,6 +57,34 @@ export function profileReport(report: Report, key: string, metric: string) {
 }
 export type QualityProfile = ReturnType<typeof profileReport>;
 
+export function qualityCSV(a: Report, b: Report, key: string, metric: string) {
+  const rows: unknown[][] = [['Priority', 'Report', 'Record number', 'Issue', 'Column', 'Source value', 'Next step']];
+  for (const report of [a, b]) {
+    const ki = report.headers.indexOf(key), mi = report.headers.indexOf(metric);
+    const profile = profileReport(report, key, metric);
+    const duplicateIDs = new Set(profile.duplicateIDs.map(item => item.id));
+    const exact = new Set<string>();
+    if (ki < 0) rows.push(['Fix first',report.name,'','Missing ID column',key,'','Select an ID column shared by both reports.']);
+    if (mi < 0) rows.push(['Fix first',report.name,'','Missing measure column',metric,'','Select a measure shared by both reports.']);
+    report.rows.forEach((row, index) => {
+      const add = (priority: string, issue: string, column: string, value: string, action: string) => rows.push([priority,report.name,index + 1,issue,column,value,action]);
+      if (ki >= 0 && !row[ki].trim()) add('Fix first','Blank ID',key,row[ki],'Fill the ID from a verified source.');
+      if (mi >= 0 && numeric(row[mi]) === null) add('Fix first','Invalid or blank measure',metric,row[mi],'Use a verified plain number; do not substitute zero for missing data.');
+      if (ki >= 0 && duplicateIDs.has(row[ki].trim())) add('Review','Repeated ID',key,row[ki],'Confirm whether multiple rows belong to this ID; all are retained in totals.');
+      row.forEach((value, column) => {
+        if (!value.trim()) add('Review','Missing cell',report.headers[column],value,'Confirm whether this field is required; this may overlap a blocking issue.');
+      });
+      const signature = JSON.stringify(row);
+      if (exact.has(signature)) add('Review','Exact duplicate extra row','','','Confirm against the source before removing a repeated row.');
+      exact.add(signature);
+    });
+  }
+  for (const column of b.headers.filter(h => !a.headers.includes(h))) rows.push(['Review',b.name,'','Added column',column,'','Confirm the schema change is intended.']);
+  for (const column of a.headers.filter(h => !b.headers.includes(h))) rows.push(['Review',a.name,'','Removed column',column,'','Confirm the schema change is intended.']);
+  if (rows.length === 1) rows.push(['Info','','','No issues found in these checks','','','Business accuracy and completeness still require review.']);
+  return rows.map(row => row.map(csvCell).join(',')).join('\r\n');
+}
+
 export function assessQuality(a: Report, b: Report, key: string, metric: string) {
   const before = profileReport(a, key, metric), after = profileReport(b, key, metric);
   const addedColumns = b.headers.filter(h => !a.headers.includes(h));
