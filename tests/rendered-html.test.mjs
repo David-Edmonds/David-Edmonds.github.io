@@ -23,6 +23,18 @@ async function render(pathname = "/") {
   );
 }
 
+test('report analyzer exposes quality context and keeps profiling browser-local', async () => {
+  const response = await render('/tools/what-changed');
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  for (const text of ['Did performance change, or did the report?', 'Try reports needing review', 'DATA QUALITY SUMMARY', 'Review inputs before sharing', 'Missing cells']) assert.ok(html.includes(text), text);
+  const files = ['page.tsx', 'compare.ts', 'QualitySummary.tsx'];
+  for (const file of files) {
+    const source = await readFile(new URL(`../app/tools/what-changed/${file}`, import.meta.url), 'utf8');
+    assert.doesNotMatch(source, /\bfetch\s*\(|XMLHttpRequest|sendBeacon|localStorage|sessionStorage|indexedDB|dangerouslySetInnerHTML/);
+  }
+});
+
 test("server-renders a concise multi-page professional homepage", async () => {
   const response = await render();
   assert.equal(response.status, 200);
