@@ -27,6 +27,44 @@ export function numeric(value: string): number | null {
   if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(v)) return null;
   const n = Number(v); return Number.isFinite(n) ? n : null;
 }
+
+// Profile parsed reports independently of comparison so all input issues remain visible.
+export function profileReport(report: Report, key: string, metric: string) {
+  const ki = report.headers.indexOf(key), mi = report.headers.indexOf(metric);
+  const blankIDs: number[] = [], invalidMeasures: number[] = [];
+  const ids = new Map<string, number[]>(), exact = new Set<string>();
+  const missingByColumn = report.headers.map(column => ({ column, count: 0 }));
+  let missingCells = 0, exactDuplicates = 0;
+  report.rows.forEach((row, index) => {
+    row.forEach((value, column) => {
+      if (!value.trim()) { missingCells++; missingByColumn[column].count++; }
+    });
+    if (ki >= 0) {
+      const id = row[ki].trim();
+      if (!id) blankIDs.push(index + 1);
+      else { const records = ids.get(id) ?? []; records.push(index + 1); ids.set(id, records); }
+    }
+    if (mi >= 0 && numeric(row[mi]) === null) invalidMeasures.push(index + 1);
+    const signature = JSON.stringify(row);
+    if (exact.has(signature)) exactDuplicates++; else exact.add(signature);
+  });
+  return {
+    records: report.rows.length, keyPresent: ki >= 0, metricPresent: mi >= 0,
+    blankIDs, invalidMeasures, missingCells,
+    missingByColumn: missingByColumn.filter(item => item.count > 0), exactDuplicates,
+    duplicateIDs: [...ids].filter(([, records]) => records.length > 1).map(([id, records]) => ({ id, records })),
+  };
+}
+export type QualityProfile = ReturnType<typeof profileReport>;
+
+export function assessQuality(a: Report, b: Report, key: string, metric: string) {
+  const before = profileReport(a, key, metric), after = profileReport(b, key, metric);
+  const addedColumns = b.headers.filter(h => !a.headers.includes(h));
+  const removedColumns = a.headers.filter(h => !b.headers.includes(h));
+  const blocked = [before, after].some(p => !p.keyPresent || !p.metricPresent || p.blankIDs.length || p.invalidMeasures.length);
+  const review = [before, after].some(p => p.duplicateIDs.length || p.missingCells) || addedColumns.length > 0 || removedColumns.length > 0;
+  return { before, after, addedColumns, removedColumns, status: blocked ? 'blocked' : review ? 'review' : 'clear' };
+}
 export type Entry = { id: string; status: string; before: number; after: number; delta: number; oldRows: number[]; newRows: number[]; fields: string[] };
 export function compare(a: Report, b: Report, key: string, metric: string) {
   const ai = a.headers.indexOf(key), bi = b.headers.indexOf(key);
@@ -76,4 +114,5 @@ ACC-006,Forma Design,West,9000
 ACC-007,Cedar Group,East,7000
 ACC-007,Cedar Group,East,7000
 ACC-009,Meridian Works,North,16000`;
+export const sampleQualityAfter = sampleAfter.replace('ACC-003,Orbit Supply,East,15000', 'ACC-003,Orbit Supply,,15000') + '\n,Example account,West,2000\nACC-010,Example account,North,not recorded';
 export function csvCell(value: unknown) { let s = String(value); if (/^[\s]*[=+@-]/.test(s)) s = "'" + s; return '"' + s.replaceAll('"', '""') + '"'; }
