@@ -28,6 +28,7 @@ const htmlRoutes = [
   "/work/sql-sales-investigation",
   "/work/federal-contracting-performance",
   "/work/washington-ev-market",
+  "/work/startup-operations",
 ];
 
 async function copyDirectoryContents(source, destination) {
