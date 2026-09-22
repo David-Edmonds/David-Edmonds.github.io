@@ -9,8 +9,8 @@ const clientDir = join(distDir, "client");
 const serverEntry = join(distDir, "server", "index.js");
 const outputDir = join(root, "docs");
 const origin = "https://david-edmonds.github.io";
-const resumeSize = 8_565;
-const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
+const resumeSize = 10_769;
+const resumeSha256 = "56c2a3d3fc0e5c28c84cf9777bb0e70e8fdf6b002aacc0bd795c21da81e512a1";
 
 const htmlRoutes = [
   "/",
