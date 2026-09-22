@@ -8,6 +8,21 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = join(root, "docs");
 const resumeSize = 8_565;
+test("startup Tableau case publishes seven previews and a matching packaged workbook", async () => {
+  const html = await readFile(join(docs, "work/startup-operations/index.html"), "utf8");
+  assert.equal((html.match(/class="startup-dashboard"/g) || []).length, 7);
+  assert.match(html, /SYNTHETIC DATA/);
+  assert.match(html, /static screenshots/);
+  assert.match(html, /real-data replacement has not been validated/);
+  assert.doesNotMatch(html, /(?:C:\\Users|localhost|127\.0\.0\.1)/i);
+  const files = [...html.matchAll(/src="(\/startup-operations\/[^"]+)"/g)].map(match => match[1]);
+  assert.equal(files.length, 7);
+  for (const file of files) await access(join(docs, file));
+  const relative = "startup-operations/Startup-Operations-Expanded.twbx";
+  assert.deepEqual(await readFile(join(docs, relative)), await readFile(join(root, "public", relative)));
+  for (const route of ["index.html", "work/index.html"]) assert.match(await readFile(join(docs, route), "utf8"), /href="\/work\/startup-operations"/);
+  assert.match(await readFile(join(docs, "sitemap.xml"), "utf8"), /\/work\/startup-operations/);
+});
 test("app portfolio publishes scoped website links without credentials or local access", async () => {
   const html = await readFile(join(docs, "apps/index.html"), "utf8");
   for (const name of ["SavorShelf", "Fourth &amp; Forever", "Quick Apply"]) assert.ok(html.includes(name));
