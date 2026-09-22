@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const docs = join(root, "docs");
-const resumeSize = 8_565;
+const resumeSize = 10_769;
 test("startup Tableau case publishes seven previews and a matching packaged workbook", async () => {
   const html = await readFile(join(docs, "work/startup-operations/index.html"), "utf8");
   assert.equal((html.match(/class="startup-dashboard"/g) || []).length, 7);
@@ -41,7 +41,7 @@ test("app portfolio publishes scoped website links without credentials or local 
   assert.match(await readFile(join(docs, "work/index.html"), "utf8"), /href="\/apps"/);
   assert.match(await readFile(join(docs, "sitemap.xml"), "utf8"), /https:\/\/david-edmonds\.github\.io\/apps/);
 });
-const resumeSha256 = "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
+const resumeSha256 = "56c2a3d3fc0e5c28c84cf9777bb0e70e8fdf6b002aacc0bd795c21da81e512a1";
 
 test('sales projects connect through a scoped planner case study', async () => {
   const routes=['sales-profitability','sql-sales-investigation','profit-scenario-planner'];
