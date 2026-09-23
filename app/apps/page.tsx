@@ -8,6 +8,17 @@ export const metadata: Metadata = {
 
 const apps = [
   {
+    id: "so-wrong", name: "So Wrong", category: "MULTIPLAYER GAME", status: "Play online",
+    question: "Make up an answer. Make them believe it.",
+    description: "A browser party game for 2–8 players: invent a believable bluff, find the truth, and earn points for fooling friends. Seven genres offer 100 questions each; pick one, mix favorites, or choose all 700.",
+    contribution: "I created the game with AI-assisted development, shaping its rules, visual direction and genre choices through iterative playtesting. The implementation includes shared rooms, timed rounds, computer opponents and score reveals.",
+    decision: "The server controls scoring and hides answers until the reveal. Computer players use preset bluffs and random eligible guesses, so play requires no external AI service.",
+    scope: "Independent personal project, publicly playable without a game account or download. Five-round games, refresh recovery and room-level question history support repeat play.",
+    steps: ["Invent a bluff", "Find the truth", "See who you fooled"],
+    tech: "React · TypeScript · Cloudflare Workers · D1", topic: "So Wrong",
+  },
+
+  {
     id: "savorshelf", name: "SavorShelf", category: "RECIPES & PERSONAL KNOWLEDGE", status: "In development",
     question: "Keep the recipe. Remember what made it better.",
     description: "A recipe app built around the way a collection changes over time: saved dishes, personal notes, ratings and named versions. The focus is making a recipe easy to find, adapt and cook again.",
@@ -43,17 +54,18 @@ export default function AppsPage() {
   return <main id="top" className="apps-page">
     <section className="shell apps-intro">
       <span className="apps-eyebrow">INDEPENDENT PRODUCT WORK</span>
-      <h1>AI &amp; apps.<br/><em>Built around real tasks.</em></h1>
-      <p>Alongside my analytics work, I’m building apps that turn information into a useful next step. These projects show how I approach product design, data handling and the parts of a workflow that need human judgment.</p>
+      <h1>AI &amp; apps.<br/><em>Useful tools. Playful ideas.</em></h1>
+      <p>Alongside my analytics work, I create apps for practical tasks and shared experiences. These independent projects show how I approach product design, data handling, testing and the decisions that shape a useful or enjoyable product.</p>
       <nav className="work-switch" aria-label="Browse my work"><a href="/work">Analytics</a><a href="/apps" aria-current="page">AI &amp; Apps</a></nav>
-      <nav className="apps-section-links" aria-label="Explore app projects"><a href="#savorshelf">SavorShelf</a><a href="#fourth-and-forever">Fourth &amp; Forever</a><a href="#quick-apply">Quick Apply</a><a href="#ai-approach">How the AI works ↓</a></nav>
+      <nav className="apps-section-links" aria-label="Explore app projects"><a href="#so-wrong">So Wrong</a><a href="#savorshelf">SavorShelf</a><a href="#fourth-and-forever">Fourth &amp; Forever</a><a href="#quick-apply">Quick Apply</a><a href="#ai-approach">How the AI works ↓</a></nav>
     </section>
     <section className="shell app-collection" aria-label="App projects">
       {apps.map(app => <article className={`app-project app-${app.id}`} key={app.id} id={app.id}>
         <div className="app-project-heading"><div><span className="apps-eyebrow">{app.category}</span><h2>{app.name}</h2></div><span className="app-status">{app.status}</span></div>
-        <div className="app-project-body"><div><h3>{app.question}</h3><p>{app.description}</p><dl><dt>What I’m building</dt><dd>{app.contribution}</dd><dt>Design decision</dt><dd>{app.decision}</dd></dl></div>
+        <div className="app-project-body"><div><h3>{app.question}</h3><p>{app.description}</p><dl><dt>My contribution</dt><dd>{app.contribution}</dd><dt>Design decision</dt><dd>{app.decision}</dd></dl></div>
           <aside className="app-workflow" aria-label={`${app.name} workflow`}><span>THE WORKFLOW</span><ol>{app.steps.map(step => <li key={step}>{step}</li>)}</ol><p>{app.tech}</p></aside>
         </div>
+        {app.id === "so-wrong" && <><a className="app-screenshot" href="https://so-wrong.davidedmonds1.chatgpt.site/" aria-label="Play So Wrong"><img src="/so-wrong/cover.png" width="1265" height="714" loading="lazy" alt="So Wrong: make up an answer, make them believe it. Create a room or join friends by code." /></a><div className="website-project-links"><a href="https://so-wrong.davidedmonds1.chatgpt.site/">Play So Wrong ↗</a><a href="/so-wrong/demo.mp4">Watch the 68-second demo ↗</a><a href="#so-wrong-build">How I built it ↓</a></div></>}
         {app.id === "savorshelf" && <div className="website-project-links"><a href="https://david-edmonds.github.io/savorshelf-cookbook/">Visit SavorShelf ↗</a><a href="https://david-edmonds.github.io/savorshelf-creator/">Open recipe creator ↗</a></div>}
         {app.id === "fourth-and-forever" && <div className="website-project-links"><a href="https://fourth-and-forever.quickapply-david.workers.dev/">Open football app · sign-in required ↗</a></div>}
         <div className="app-project-footer"><p>{app.scope}</p><a href={`mailto:davidedmondsc@gmail.com?subject=${encodeURIComponent(`Portfolio project: ${app.topic}`)}`}>Discuss {app.topic}<span aria-hidden="true"> ↗</span></a></div>
@@ -62,6 +74,12 @@ export default function AppsPage() {
     <section className="shell ai-approach" id="ai-approach" aria-labelledby="ai-approach-title">
       <span className="apps-eyebrow">IMPLEMENTATION NOTES</span><h2 id="ai-approach-title">Where AI fits—and how I check its work.</h2>
       <p className="ai-intro">These projects use AI in different ways: to help develop software, draft recipe variations, or interpret a question. I define the model’s job narrowly, then use application logic and review to decide what happens next. Using an existing model is different from training one; these are integration projects, not claims of original model research.</p>
+      <details className="ai-detail" id="so-wrong-build"><summary>So Wrong: AI-assisted development, rule-based gameplay<span>Shared state, computer opponents and testing</span></summary><div>
+        <h3>My role and the use of AI</h3><p>I directed the concept, name, features and iteration, using Codex to assist with implementation, question drafting, tests and deployment. I played the game and used that feedback to guide the next changes. AI assistance is part of the development process; no language model runs during a game.</p>
+        <h3>How a round stays fair</h3><p>A shared server clock advances writing, voting and reveals. The server keeps the answer bank out of the browser and calculates points: 1,000 for identifying the truth and 500 for each player fooled. Computer opponents submit preset decoys and choose eligible answers randomly without consulting the truth flag.</p>
+        <h3>Checks and limits</h3><p>The 700-question release passed 19 game and content tests, type checking and a production build. A public two-session check verified genre selection and two scored rounds; full five-round local checks covered shared settings and game progression. Phone-sized layouts were inspected separately. These checks are not a large-scale load test. Source links make facts reviewable; reference availability alone does not establish factual accuracy.</p>
+        <h3>Privacy and replay</h3><p>Players use nicknames and room codes without game accounts. Bluffs are stored on the game server to run the room; this is not browser-only processing. Rooms expire after 24 hours, and expired records are cleaned up when another room is created. Room history avoids repeated questions until the selected pool cycles.</p>
+      </div></details>
       <details className="ai-detail"><summary>SavorShelf: structured recipe generation and revision<span>Inputs, validation and saved versions</span></summary><div>
         <h3>What the model receives</h3><p>The creator companion sends the user’s dish request and visible preferences. A revision includes the latest complete draft and the requested change. The workflow does not send the entire saved collection or an unlimited chat history.</p>
         <h3>What it produces</h3><p>The requested output is a structured recipe: ingredients, quantities, servings, steps and notes. This gives the app fields it can parse and validate instead of treating a free-form answer as a finished recipe. The current provider adapter uses Puter; keeping that adapter separate allows the provider to change without moving ownership of recipe state.</p>

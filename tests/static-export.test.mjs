@@ -34,13 +34,13 @@ test("startup Tableau case publishes seven previews and a matching packaged work
 });
 test("app portfolio publishes scoped website links without credentials or local access", async () => {
   const html = await readFile(join(docs, "apps/index.html"), "utf8");
-  for (const name of ["SavorShelf", "Fourth &amp; Forever", "Quick Apply"]) assert.ok(html.includes(name));
+  for (const name of ["So Wrong", "SavorShelf", "Fourth &amp; Forever", "Quick Apply"]) assert.ok(html.includes(name));
   assert.match(html, /not a language model/);
   assert.match(html, /Private web app/);
   assert.match(html, /Private working app/);
   assert.doesNotMatch(html, /This portfolio website/);
   assert.match(html, /id="ai-approach"/);
-  assert.equal((html.match(/class="ai-detail"/g) || []).length, 3);
+  assert.equal((html.match(/class="ai-detail"/g) || []).length, 4);
   assert.match(html, /not claims of original model research/);
   assert.match(html, /not a feature claimed as implemented/);
   assert.match(html, /https:\/\/david-edmonds.github.io\/savorshelf-cookbook\//);
@@ -310,4 +310,16 @@ test("consulting offers and project inquiries retain a clear contact path", asyn
   assert.doesNotMatch(brief, /CURRENT PROJECT/);
   const source = await readFile(join(root, 'app/contact/InquiryDraft.tsx'), 'utf8');
   assert.doesNotMatch(source, /\b(fetch|XMLHttpRequest|sendBeacon|localStorage|sessionStorage)\b/);
+});
+
+test("So Wrong offers playable evidence and distinguishes development AI from runtime", async () => {
+  const html = await readFile(join(docs, "apps/index.html"), "utf8");
+  assert.match(html, /href="https:\/\/so-wrong\.davidedmonds1\.chatgpt\.site\/"/);
+  assert.match(html, /id="so-wrong-build"/);
+  assert.match(html, /no language model runs during a game/);
+  assert.match(html, /Bluffs are stored on the game server/);
+  assert.match(html, /Independent personal project/);
+  for (const file of ["cover.png", "demo.mp4"]) {
+    assert.deepEqual(await readFile(join(docs, "so-wrong", file)), await readFile(join(root, "public", "so-wrong", file)));
+  }
 });
