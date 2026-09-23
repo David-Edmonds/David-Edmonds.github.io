@@ -70,7 +70,7 @@ test("renders every main page and keeps the public portfolio truthful and saniti
   assert.match(federalHtml, /different denominators/i);
   assert.match(federalHtml, /not presented as[\s\S]*Confia Solutions/i);
   assert.doesNotMatch(federalHtml, /\.pbix/i);
-  assert.match(workHtml, /PBIX and source files are not published/);
+  assert.doesNotMatch(workHtml, /class="work-card-note"/);
   assert.match(workHtml, /CURRENT ROLE · CONFIA SOLUTIONS/);
   assert.match(workHtml, /Recruiting &amp; Operational Analytics/);
   assert.match(toolsHtml, /Reporting time &amp; cost calculator/);
