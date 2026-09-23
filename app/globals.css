@@ -242,3 +242,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 .startup-dashboard figcaption { margin-top: .7rem; font-size: .875rem; color: #526579; }
 .startup-case li { margin: .8rem 0; }
 @media(min-width:1001px) { .home-project-grid.project-preview-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+/* Limit previews to the dashboard canvas, excluding desktop chrome and pointer-bearing tabs. */
+.startup-preview-frame { display:block; position:relative; aspect-ratio:1200/820; overflow:hidden; border:1px solid #d8e1e8; border-radius:.5rem; }
+.startup-dashboard .startup-preview-frame img { position:absolute; width:120%; max-width:none; height:auto; left:-10%; top:-3.04878049%; border:0; border-radius:0; }
