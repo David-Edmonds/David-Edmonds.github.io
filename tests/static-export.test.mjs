@@ -18,6 +18,15 @@ test("startup Tableau case publishes seven previews and a matching packaged work
   const files = [...html.matchAll(/src="(\/startup-operations\/[^"]+)"/g)].map(match => match[1]);
   assert.equal(files.length, 7);
   for (const file of files) await access(join(docs, file));
+  assert.equal((html.match(/loading="eager"/g) || []).length, 7);
+  const previews = [...html.matchAll(/href="(\/startup-operations\/previews\/[^"]+)"/g)].map(match => match[1]);
+  assert.equal(previews.length, 7);
+  assert.equal(new Set(previews).size, 7);
+  for (const preview of previews) {
+    const view = await readFile(join(docs, preview), "utf8");
+    assert.match(view, /aspect-ratio:1200\/820;overflow:hidden/);
+    assert.match(view, /Back to all seven dashboards/);
+  }
   const relative = "startup-operations/Startup-Operations-Expanded.twbx";
   assert.deepEqual(await readFile(join(docs, relative)), await readFile(join(root, "public", relative)));
   for (const route of ["index.html", "work/index.html"]) assert.match(await readFile(join(docs, route), "utf8"), /href="\/work\/startup-operations"/);
