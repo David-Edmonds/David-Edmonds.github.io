@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 
 const siteUrl = new URL(process.env.SITE_URL ?? "https://david-edmonds.github.io/");
-const expectedResumeBytes = 8_565;
+const expectedResumeBytes = 10_769;
 const expectedResumeSha256 =
-  "f5aeff11a397bb19fe508b7f4baa2592ad79d0faf428220ff90648728d1d9d8d";
+  "56c2a3d3fc0e5c28c84cf9777bb0e70e8fdf6b002aacc0bd795c21da81e512a1";
 
 const pageChecks = [
   { path: "/", contains: ["Confia Solutions, LLC", "Senior Data Analyst"] },
