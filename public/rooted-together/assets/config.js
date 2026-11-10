@@ -1,0 +1,1 @@
+window.ROOTED_DEPLOY={"basePath":"/rooted-together/","apiOrigin":"https://rooted-together-seven-days.davidedmonds1.chatgpt.site","auth":"personal-link"};
