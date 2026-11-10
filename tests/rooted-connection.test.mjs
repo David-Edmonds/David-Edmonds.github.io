@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const storage=new Map(),events={};let reloads=0,rewritten='';
+const token='rt_wife_'+'B'.repeat(43),location={href:'https://fixture.example/rooted-together/?view=husband',pathname:'/rooted-together/',search:'?view=husband',hash:'',reload(){reloads++;}};
+const context={window:{ROOTED_DEPLOY:{auth:'personal-link'},addEventListener:(name,fn)=>events[name]=fn},document:{addEventListener(){}},localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},URL,URLSearchParams,location,history:{replaceState(_state,_title,url){rewritten=url;}}};
+vm.runInNewContext(fs.readFileSync('public/rooted-together/assets/connection.js','utf8'),context);
+assert.equal(context.window.RootedConnection.connected,false);
+location.hash='#connect='+token;location.href='https://fixture.example/rooted-together/?view=husband'+location.hash;events.hashchange();
+assert.equal(context.window.RootedConnection.connected,true);assert.equal(context.window.RootedConnection.role,'wife');assert.equal(storage.get('rooted.personal-connection.v1'),token);assert.equal(reloads,1);assert.equal(rewritten,'/rooted-together/?view=wife');assert(!rewritten.includes(token));
+location.hash='#main';events.hashchange();assert.equal(reloads,1);
+console.log('Personal-link flow passed: an existing tab consumes a new private link, selects its own role, removes the token fragment, and reloads the connection.');
