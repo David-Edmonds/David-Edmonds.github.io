@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const listeners={},events=[],storage=new Map();
+const connection={enabled:true,connected:false,role:null,markup:()=>'',open(){},api:p=>'https://fixture.example'+p,headers:()=>({})};
+const state={viewer:{role:'wife',name:'Becca'},days:Array.from({length:7},(_,i)=>({day:i+1,husband:{version:0,personalFinishedAt:null,dayFinishedAt:null},wife:{version:0,personalFinishedAt:null,dayFinishedAt:null},meeting:{}}))};
+const posted=[];
+const context={window:{RootedConnection:connection,addEventListener(){}},document:{hidden:false,body:{dataset:{day:'1',selectedRole:'wife'}},querySelectorAll:()=>[],addEventListener(name,fn){(listeners[name]??=[]).push(fn);},dispatchEvent(e){events.push(e.type);}},localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},CustomEvent:class{constructor(type,options){this.type=type;this.detail=options?.detail;}},AbortController,setTimeout,clearTimeout,setInterval:()=>0,clearInterval(){},console,URL,Blob,fetch:async(url,options)=>{if(options.method==='POST'){const body=JSON.parse(options.body);posted.push(body);const p=state.days[body.day-1].wife;assert.equal(body.expectedVersion,p.version);p.version++;p.personalFinishedAt='2026-11-10T23:00:00Z';if(body.action==='complete')p.dayFinishedAt=p.personalFinishedAt;}return Response.json(state);}};
+vm.runInNewContext(fs.readFileSync('public/rooted-together/assets/shared.js','utf8'),context);
+const button={dataset:{},hasAttribute:name=>name==='data-sync-personal'};
+await listeners.click[0]({target:{closest:()=>button}});
+assert(events.includes('rooted:personal-finished'),'A local finish must let Becca continue to Together.');
+assert.equal(context.window.RootedSync.pending[0].role,'wife');assert.equal(context.window.RootedSync.pending[0].action,'personal');
+assert.equal(await context.window.RootedSync.finish(1,'wife'),true,'Whole-day finish must advance even before a connection is available.');
+assert.equal(context.window.RootedSync.pending.length,2);assert.equal(posted.length,0);
+connection.connected=true;connection.role='wife';await context.window.RootedSync.refresh();
+assert.equal(context.window.RootedSync.pending.length,0);assert.deepEqual(posted.map(x=>x.expectedVersion),[0,1]);assert(context.window.RootedSync.isShared(1,'complete','wife'));assert.equal(state.days[0].husband.personalFinishedAt,null);
+console.log('Finish flow passed: unconnected personal/whole-day completion advances, saves pending locally, and syncs only the correct role after reconnecting.');

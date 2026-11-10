@@ -2,10 +2,10 @@
 
 A seven-day Scripture devotional at https://david-edmonds.github.io/rooted-together/.
 
-The browser app includes separate David and Becca views, ESV passage reading, question answers, local notes, expandable sections, offline reading, shared readiness and meeting suggestions. GitHub Pages serves these static files. A separate authenticated API stores completion and meeting records; it never receives journal text.
+GitHub Pages serves the reading app. The existing role-authenticated service stores completion, readiness, meeting plans, and the shared Together workspace. Personal connection links authorize each person's own progress and shared answer; neither can overwrite the other person's answer. Comments append to a shared thread, use retry-safe IDs, and update every few seconds while Together is open.
 
-Personal connection links are sent privately and are never committed to this repository. The URL fragment is removed as soon as a link connects the browser. Each link authorizes one person's progress. Notes remain local, with backup/import and text export. Keep a backup before switching browsers or moving from the previous website.
+Personal plans, private preparation and journal notes stay in browser storage, with backup/import. Text written in the clearly labelled shared answer and comment boxes is sent to the shared service. Old private answers are never automatically published.
 
-Additional improvements include saved-note search, a calendar download for suggested meetings, and a connection panel that does not require ChatGPT or GitHub sign-in.
+Completion can save locally and continue when a connection is unavailable. Pending status is labelled honestly and syncs under the matching personal link later. The app's service worker is scoped to this folder and excludes the cross-origin API.
 
-The existing release workflow copies public/rooted-together into its generated docs/rooted-together output. Do not hand-edit docs.
+The release workflow generates docs/rooted-together from public/rooted-together; do not hand-edit docs. No personal links or private keys are stored in this repository.
