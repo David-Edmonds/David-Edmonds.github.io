@@ -13,7 +13,7 @@ test('Rooted Together keeps all seven days and separate personal views',async()=
 test('Rooted Together exports exact assets without personal keys or emails',async()=>{
  for(const file of await files(source)){const relative=path.relative(source,file),body=await readFile(file);assert.deepEqual(await readFile(path.join(published,relative)),body,relative);const text=body.toString();assert(!/rt_(?:husband|wife)_[A-Za-z0-9_-]{43}/.test(text),'Personal key leaked into '+relative);assert(!/@gmail\.com/.test(text));}
  for(const name of ['app','shared','together','connection','config','data'])new vm.Script(await readFile(path.join(source,'assets',name+'.js'),'utf8'));
- const config={window:{}};vm.runInNewContext(await readFile(path.join(source,'assets/config.js'),'utf8'),config);assert.equal(config.window.ROOTED_DEPLOY.auth,'personal-link');
+ const config={window:{}};vm.runInNewContext(await readFile(path.join(source,'assets/config.js'),'utf8'),config);assert.equal(config.window.ROOTED_DEPLOY.auth,'sections');
 });
 test('Rooted Together stays inside its own Pages folder',async()=>{
  for(const file of await files(published)){if(!file.endsWith('.html'))continue;const html=await readFile(file,'utf8');for(const [,url] of html.matchAll(/(?:src|href)="(\/[^"#?]+)(?:[^"]*)"/g)){assert(url.startsWith('/rooted-together/'),url);const target=url.slice('/rooted-together/'.length)||'index.html';assert(await readFile(path.join(published,target)),target);}}
@@ -23,3 +23,5 @@ test('Rooted Together stays inside its own Pages folder',async()=>{
 test('Together has separate shared answers, recoverable comments and explicit sharing labels',async()=>{
  const app=await readFile(path.join(source,'assets/app.js'),'utf8'),live=await readFile(path.join(source,'assets/together.js'),'utf8');assert(app.includes("noteField('personalAction'"));assert(app.includes('data-together-day'));assert(live.includes('Shared with both of you.'));assert(live.includes('data-answer-conflict'));assert(live.includes('baseVersion'));assert(live.includes('crypto.randomUUID()'));assert(live.includes('esc(c.body)'));assert(live.includes('document.activeElement!==answer'));
 });
+
+test('Choosing a section needs no personal link or stored token',async()=>{const connection=await readFile(path.join(source,'assets/connection.js'),'utf8'),app=await readFile(path.join(source,'assets/app.js'),'utf8');assert(connection.includes('X-Rooted-Role'));assert(connection.includes('connected(){return true;}'));assert(!connection.includes('data-connection-form'));assert(!app.includes('Open your personal'));assert(app.includes('Anyone with this website'));});
